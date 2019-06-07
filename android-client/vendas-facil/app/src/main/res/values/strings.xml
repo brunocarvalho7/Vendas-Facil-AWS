@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Vendas Fácil</string>
+    <string name="title_activity_clientes_details">ClientesDetails</string>
+    <string name="title_activity_principal">Vendas fácil</string>
+    <string name="navigation_drawer_open">Abrir menu lateral</string>
+    <string name="navigation_drawer_close">Fechar menu lateral</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_user">Bruno Carvalho</string>
+    <string name="card_venda_mes">maio</string>
+    <string name="card_venda_mes_quant">0 Venda(s)</string>
+    <string name="card_venda_mes_valor">R$ 0,00</string>
+    <string name="card_venda_dia">hoje</string>
+    <string name="card_venda_dia_quant">0 Venda(s)</string>
+    <string name="card_venda_dia_valor">R$ 0,00</string>
+    <string name="title_activity_produtos">Produtos</string>
+    <string name="title_activity_clientes">Clientes</string>
+    <string name="title_activity_produtos_details">ProdutosDetails</string>
+    <string name="title_activity_fornecedores">Fornecedores</string>
+    <string name="title_activity_fornecedores_details">Fornecedores</string>
+    <string name="produtos_details_descricao">Descrição</string>
+    <string name="produtos_details_codBarras">Código de Barras</string>
+    <string name="produtos_details_unidade">Tipo de Unidade</string>
+    <string name="produtos_details_RsCompra">R$ Compra</string>
+    <string name="produtos_details_RsVenda">R$ Venda</string>
+    <string name="menu_confirmar">Confirmar</string>
+    <string name="produtos_details_categoria">Categoria</string>
+    <string name="title_activity_vendas">Nova venda</string>
+    <string name="activity_venda_sem_itens">Sem itens = R$ 0,00</string>
+
+    <string name="google_status_fmt">Google User: %s</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.ufc.mobile.vendasfacil">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.LoginActivity"
+            android:label="@string/title_activity_principal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.PrincipalActivity"
+            android:label="@string/title_activity_principal"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.activity.ProdutosActivity"
+            android:label="@string/title_activity_produtos"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.ProdutosDetailsActivity"
+            android:label="@string/title_activity_produtos_details"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.ClientesActivity"
+            android:label="@string/title_activity_clientes"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.ClientesDetailsActivity"
+            android:label="@string/title_activity_clientes_details"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.FornecedoresActivity"
+            android:label="@string/title_activity_fornecedores"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.FornecedoresDetailsActivity"
+            android:label="@string/title_activity_fornecedores_details"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.VendasActivity"
+            android:label="@string/title_activity_vendas"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.VendasPagamentoActivity"
+            android:label="Pagamento"
+            android:theme="@style/AppThemeVendaPagamento" />
+        <activity
+            android:name=".ui.activity.VendasPagamentoConfirmacaoActivity"
+            android:label="Confirmação Pagamento"
+            android:theme="@style/AppThemeVendaPagamento" />
+    </application>
+
+</manifest>

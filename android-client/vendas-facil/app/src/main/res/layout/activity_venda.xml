@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.VendasActivity">
+
+    <include layout="@layout/toolbar_venda" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <Button
+            android:id="@+id/activity_venda_button_produto"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_toStartOf="@id/activity_venda_button_scanner"
+            android:drawableLeft="@drawable/ic_search"
+            android:onClick="searchProduto" />
+
+        <Button
+            android:id="@+id/activity_venda_button_scanner"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/activity_venda_button_produto"
+            android:layout_alignParentEnd="true"
+            android:drawableLeft="@drawable/ic_bar_code"
+            android:onClick="scanBarCode" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_venda_recycler_itens"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/activity_venda_button_total"
+            android:layout_below="@id/activity_venda_button_produto"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:id="@+id/activity_venda_button_total"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:text="@string/activity_venda_sem_itens" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

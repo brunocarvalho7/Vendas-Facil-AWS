@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppThemeVendaPagamento"
+    tools:context=".ui.activity.VendasPagamentoActivity">
+
+    <TextView
+        android:id="@+id/activity_venda_pagamento_lblValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="VALOR RECEBIDO"
+        android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelPrimary" />
+
+    <EditText
+        android:id="@+id/activity_venda_pagamento_edtValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_venda_pagamento_lblValor"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorBackground"
+        android:ems="10"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textColor="@color/colorBackground" />
+
+    <TextView
+        android:id="@+id/activity_venda_pagamento_lblTroco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="TROCO:"
+        android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondaryBold"
+        android:layout_below="@id/activity_venda_pagamento_edtValor"
+        android:layout_alignLeft="@id/activity_venda_pagamento_edtValor"/>
+
+    <TextView
+        android:id="@+id/activity_venda_pagamento_lblTrocoValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="R$ 0,00"
+        android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondary"
+        android:layout_alignTop="@id/activity_venda_pagamento_lblTroco"
+        android:layout_toEndOf="@id/activity_venda_pagamento_lblTroco" />
+
+    <LinearLayout
+        android:id="@+id/activity_venda_pagamento_ll_formaPag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/activity_venda_pagamento_lblTroco"
+        android:layout_marginTop="60dp">
+
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:background="@drawable/button_border_outline"
+            android:drawableLeft="@drawable/ic_dinheiro"
+            android:paddingStart="12px"
+            android:text="Dinheiro"
+            android:textColor="@color/colorBackground"
+            android:onClick="finalizarVendaDinheiro" />
+
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:background="@drawable/button_border_outline"
+            android:drawableLeft="@drawable/ic_cartao"
+            android:paddingStart="12px"
+            android:text="Cartão"
+            android:textColor="@color/colorBackground"
+            android:onClick="finalizarVendaCartao" />
+
+    </LinearLayout>
+
+</RelativeLayout>

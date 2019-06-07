@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/black"
+        android:background="@null"
+        android:id="@+id/activity_venda_alterar_quantidade_decrement"
+        android:textStyle="bold"
+        android:text="—"
+        android:layout_toStartOf="@id/activity_venda_alterar_quantidade_display"
+        android:layout_alignTop="@id/activity_venda_alterar_quantidade_display"/>
+
+    <EditText
+        android:background="@android:color/white"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:text="1"
+        android:textColor="@android:color/black"
+        android:inputType="number"
+        android:id="@+id/activity_venda_alterar_quantidade_display"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:background="@null"
+        android:id="@+id/activity_venda_alterar_quantidade_increment"
+        android:text="+"
+        android:layout_toEndOf="@id/activity_venda_alterar_quantidade_display"/>
+
+</RelativeLayout>

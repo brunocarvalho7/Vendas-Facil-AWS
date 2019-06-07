@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppThemeVendaPagamento"
+    tools:context=".ui.activity.VendasPagamentoConfirmacaoActivity">
+
+    <TextView
+        android:id="@+id/activity_venda_pagamento_confirmacao_mensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="VENDA REALIZADA COM SUCESSO!"
+
+        android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelPrimary" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_venda_pagamento_confirmacao_mensagem">
+
+        <TextView
+            android:id="@+id/activity_venda_pagamento_confirmacao_lblValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="VALOR:"
+            android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondaryBold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_venda_pagamento_confirmacao_lblValorRs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="R$ 50,00"
+            android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activity_venda_pagamento_confirmacao_lblValor"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_venda_pagamento_confirmacao_lblTroco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TROCO:"
+            android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondaryBold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_venda_pagamento_confirmacao_lblValor" />
+
+        <TextView
+            android:id="@+id/activity_venda_pagamento_confirmacao_lblTrocoValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/activity_venda_pagamento_confirmacao_lblTroco"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/activity_venda_pagamento_confirmacao_lblTroco"
+            android:text="R$ 50,00"
+            android:textAppearance="@style/AppThemeVendaPagamento.TextAppearance.PagamentoLabelSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activity_venda_pagamento_confirmacao_lblTroco"
+            app:layout_constraintTop_toBottomOf="@+id/activity_venda_pagamento_confirmacao_lblValorRs" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/activity_venda_pagamento_confirmacao_btnNovaVenda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_outline"
+        android:drawableLeft="@drawable/ic_fab_venda"
+        android:paddingStart="12px"
+        android:text="Nova Venda"
+        android:textColor="@color/colorBackground"
+        android:layout_alignParentBottom="true"
+        android:onClick="novaVenda"/>
+</RelativeLayout>
