@@ -1,0 +1,1006 @@
+﻿{
+	"info": {
+		"_postman_id": "fb9e4f2f-36ed-4fe7-9d7a-4f39d787c305",
+		"name": "Vendas-facil",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/clientes",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/clientes/b7e7d377-9f9f-42f6-a5fc-7d7943103394",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"clientes",
+								"b7e7d377-9f9f-42f6-a5fc-7d7943103394"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"endereco\": \"Rua Teste\",\n\t\"telefone\": \"tee5\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/clientes",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"e13d0f02-27bf-48e8-9071-6e3f97c4c03b\",\n    \"nome\": \"Bruno Carvalho\",\n    \"endereco\": \"Teste\",\n    \"telefone\": \"31141\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/clientes/e13d0f02-27bf-48e8-9071-6e3f97c4c03b",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"clientes",
+								"e13d0f02-27bf-48e8-9071-6e3f97c4c03b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/clientes/b7e7d377-9f9f-42f6-a5fc-7d7943103394",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"clientes",
+								"b7e7d377-9f9f-42f6-a5fc-7d7943103394"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendas",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/vendas",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/vendas/80ea411d-bcdb-4ca5-844e-4f66f2474cdc",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"vendas",
+								"80ea411d-bcdb-4ca5-844e-4f66f2474cdc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": \"2019-06-01T23:20:00\",\n\t\"cliente\":{\n        \"id\": \"e13d0f02-27bf-48e8-9071-6e3f97c4c03b\",\n        \"nome\": \"Bruno Carvalho\"\n    },\n    \"itens\": [\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t},\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t},\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t}\n    ],\n    \"total\": 25.8,\n    \"formaPagamento\": \"DINHEIRO\"\n}\n\n\n\n\n"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/vendas",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"e13d0f02-27bf-48e8-9071-6e3f97c4c03b\",\n    \"nome\": \"Bruno Carvalho\",\n    \"endereco\": \"Rua josé de queirós pessoa, 2567 B\",\n    \"telefone\": \"86995098675\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/vendas/e13d0f02-27bf-48e8-9071-6e3f97c4c03b",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"vendas",
+								"e13d0f02-27bf-48e8-9071-6e3f97c4c03b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/vendas/f1e37746-18e9-4949-896b-979efca6498b",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"vendas",
+								"f1e37746-18e9-4949-896b-979efca6498b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eadc3439-48ed-4c39-8d91-3cdb8a54cdeb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "93a44d26-36c2-40a3-b6ec-d6e7b51a4375",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Itens Venda",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/item-vendas",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"item-vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/item-vendas/1c489e4d-3afb-40fc-b206-f25d1874e269",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"item-vendas",
+								"1c489e4d-3afb-40fc-b206-f25d1874e269"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": \"2019-06-01T23:20:00\",\n\t\"cliente\":{\n        \"id\": \"e13d0f02-27bf-48e8-9071-6e3f97c4c03b\",\n        \"nome\": \"Bruno Carvalho\"\n    },\n    \"itens\": [\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t},\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t},\n    \t{\n    \t\t\"produto\": {\n    \t\t\t\"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \t\t\"descricao\": \"Produto Alfateste\",\n        \t\t\"unidade\": \"UND\",\n        \t\t\"rsVenda\": 13.9\n    \t\t},\n    \t\t\"qtd\": 1.0,\n    \t\t\"rs\": 13.9\n    \t}\n    ],\n    \"total\": 25.8,\n    \"formaPagamento\": \"DINHEIRO\"\n}\n\n\n\n\n"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/item-vendas",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"item-vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"8239cf37-564e-4ff6-8368-e79f06895cef\",\n    \"produto\": {\n        \"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n        \"descricao\": \"Produto Alfateste\",\n        \"unidade\": \"UND\",\n        \"codBarras\": \"1234\",\n        \"categoria\": {\n            \"id\": \"f4600a2b-f945-4794-8608-f825d08653fc\",\n            \"descricao\": \"Categoria A\"\n        },\n        \"rsCompra\": 10.9,\n        \"rsVenda\": 13.9,\n        \"estoque\": 0\n    },\n    \"qtd\": 2,\n    \"rs\": 13.9,\n    \"venda\": {\n        \"id\": \"57b12847-2e07-41a1-8c7f-37b67d05609a\",\n        \"data\": \"2019-06-01T23:20:00\",\n        \"cliente\": {\n            \"id\": \"e13d0f02-27bf-48e8-9071-6e3f97c4c03b\",\n            \"nome\": \"Bruno Carvalho\",\n            \"endereco\": \"Rua josé de queirós pessoa, 2567 B\",\n            \"telefone\": \"86995098675\"\n        },\n        \"total\": 25.8,\n        \"formaPagamento\": \"DINHEIRO\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/item-vendas/8239cf37-564e-4ff6-8368-e79f06895cef",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"item-vendas",
+								"8239cf37-564e-4ff6-8368-e79f06895cef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/item-vendas/2f08753d-d651-4114-9564-ed9b6028eca0",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"item-vendas",
+								"2f08753d-d651-4114-9564-ed9b6028eca0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eadc3439-48ed-4c39-8d91-3cdb8a54cdeb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "93a44d26-36c2-40a3-b6ec-d6e7b51a4375",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Fornecedores",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/fornecedores",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"fornecedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/fornecedores/5282e675-43d9-4248-a842-d715213113cd",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"fornecedores",
+								"5282e675-43d9-4248-a842-d715213113cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Fornecedor A\",\n\t\"telefone\": \"995098675\",\n\t\"vendedor\": \"Vendedor A\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/fornecedores",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"fornecedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"5282e675-43d9-4248-a842-d715213113cd\",\n\t\"nome\": \"Fornecedor Alfa\",\n\t\"telefone\": \"995098676\",\n\t\"vendedor\": \"Vendedor Alfa\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/fornecedores/5282e675-43d9-4248-a842-d715213113cd",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"fornecedores",
+								"5282e675-43d9-4248-a842-d715213113cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/fornecedores/534528f1-896a-4cec-b5c9-6cddf16c5463",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"fornecedores",
+								"534528f1-896a-4cec-b5c9-6cddf16c5463"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a85683a-2d54-467f-adfc-efd174d32c6b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f52f19ff-3afb-458f-b905-5b1623b024e2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/categorias",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/categorias/67234220-9598-4b70-ab15-2f46ecaf5448",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"categorias",
+								"67234220-9598-4b70-ab15-2f46ecaf5448"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"Categoria C\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/categorias",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"67234220-9598-4b70-ab15-2f46ecaf5448\",\n\t\"descricao\": \"Categoria alfa\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/categorias/67234220-9598-4b70-ab15-2f46ecaf5448",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"categorias",
+								"67234220-9598-4b70-ab15-2f46ecaf5448"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/categorias/67234220-9598-4b70-ab15-2f46ecaf5448",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"categorias",
+								"67234220-9598-4b70-ab15-2f46ecaf5448"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a85683a-2d54-467f-adfc-efd174d32c6b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f52f19ff-3afb-458f-b905-5b1623b024e2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos/1353b360-1a58-43cb-9c12-c13892117fac",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos",
+								"1353b360-1a58-43cb-9c12-c13892117fac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por código de barras",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos/barcode/123",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos",
+								"barcode",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"Produto A1\",\n\t\"unidade\": \"UND\",\n\t\"codBarras\": \"1234\",\n\t\"categoria\": {\n        \"id\": \"f4600a2b-f945-4794-8608-f825d08653adfc\",\n        \"descricao\": \"Categoria A\"\n    },\n    \"rsCompra\": 10.9,\n    \"rsVenda\": 13.9\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1353b360-1a58-43cb-9c12-c13892117fac\",\n    \"descricao\": \"Produto Alfateste\",\n    \"unidade\": \"UND\",\n    \"codBarras\": \"1234\",\n    \"categoria\": {\n        \"id\": \"f4600a2b-f945-4794-8608-f825d08653fc\",\n        \"descricao\": \"Categoria A\"\n    },\n    \"rsCompra\": 10.9,\n    \"rsVenda\": 13.9,\n    \"estoque\": 0\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos/1353b360-1a58-43cb-9c12-c13892117fac",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos",
+								"1353b360-1a58-43cb-9c12-c13892117fac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/produtos/b9e837b8-2b07-48f2-aa2c-95df3080f8d9",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"produtos",
+								"b9e837b8-2b07-48f2-aa2c-95df3080f8d9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a85683a-2d54-467f-adfc-efd174d32c6b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f52f19ff-3afb-458f-b905-5b1623b024e2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Sign-in",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"contato.brunocarvalho7@gmail.com8\",\n\t\"password\": \"bruno\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/usuarios/signin",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"usuarios",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign-up",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Bruno Carvalho\",\n\t\"email\": \"contato.brunocarvalho7@gmail.com8\",\n\t\"password\": \"bruno\"\n}"
+						},
+						"url": {
+							"raw": "{{URL_API_BASE}}/usuarios/signup",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"usuarios",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API_BASE}}/usuarios/1",
+							"host": [
+								"{{URL_API_BASE}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "74ec6777-af3e-4000-a639-be31061f9fdb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a468527-6db2-45aa-9a41-aad79a894c34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Enviar arquivo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Bruno Carvalho/Pictures/Screenshots/Captura de Tela (47).png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvLmJydW5vY2FydmFsaG83QGdtYWlsLmNvbTgiLCJyb2xlcyI6W10sImlhdCI6MTU1OTgyNTc5MCwiZXhwIjoxNTU5ODI5MzkwfQ.Ne3e12UMMTuWwkEcToxUQjIYseBLAXxiGC7offMQa6o",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "30c2e714-b777-4821-b106-0fa4dfcf92dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d8b0d77e-9ee2-4a77-8c0a-85a1d1639bb9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e24f2726-e7f1-495c-9dae-85d27c396fb1",
+			"key": "URL_API_BASE",
+			"value": "http://3.82.154.221:8080/vendas-facil/api",
+			"type": "string"
+		}
+	]
+}
