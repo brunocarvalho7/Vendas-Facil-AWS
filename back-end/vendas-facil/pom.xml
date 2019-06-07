@@ -14,6 +14,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vendas-facil</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
+	
 
 	<profiles>
 		<profile>
@@ -22,7 +24,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<packaging.type>jar</packaging.type>
+				<packaging>jar</packaging>
 				<activatedProperties>dev</activatedProperties>
 			</properties>
 			<dependencies>
@@ -36,15 +38,9 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<packaging.type>war</packaging.type>
+				<packaging>war</packaging>
 				<activatedProperties>prod</activatedProperties>
 			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</dependency>
-			</dependencies>
 		</profile>
 	</profiles>
 
@@ -95,12 +91,19 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>
