@@ -36,7 +36,7 @@ public class PrincipalActivity extends AppCompatActivity
     private TextView txtValorDia, txtQtdDia, txtMes, txtValorMes, txtQtdMes;
     private VendasDiarias vendasDiarias;
     private VendasMensal vendasMensal;
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class PrincipalActivity extends AppCompatActivity
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
 
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
         setUpToolbar();
         setUpDrawerMenu();
@@ -155,12 +155,12 @@ public class PrincipalActivity extends AppCompatActivity
     }
 
     private void setUpUser() {
-        FirebaseUser currentUser = VendasFacilAuthenticationFirebase.getInstance().getUserAuthenticated();
+        String currentUser = VendasFacilAuthenticationFirebase.getInstance().getUsername();
 
         if(currentUser != null){
             TextView username =  navigationPrincipal.getHeaderView(0)
                     .findViewById(R.id.menu_lateral_username);
-            username.setText(currentUser.getDisplayName());
+            username.setText(currentUser);
         }
     }
 
