@@ -18,14 +18,15 @@ import java.util.List;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.ui.activity.FornecedoresDetailsActivity;
 
-public class RecyclerFornecedoresAdapter extends RecyclerView.Adapter<RecyclerFornecedoresAdapter.CustomViewHolder> implements Filterable {
+public class RecyclerFornecedoresAdapter extends RecyclerView.Adapter<RecyclerFornecedoresAdapter.CustomViewHolder>
+        implements Filterable {
 
     private List<Fornecedor> dados;
     private List<Fornecedor> dadosPesquisa;
 
-    public RecyclerFornecedoresAdapter(List<Fornecedor> dados) {
-        this.dados = dados;
-        this.dadosPesquisa = new ArrayList<>(dados);
+    public RecyclerFornecedoresAdapter() {
+        this.dados = new ArrayList<>();
+        this.dadosPesquisa = this.dados;
     }
 
     public void setDados(List<Fornecedor> dados) {
@@ -52,6 +53,10 @@ public class RecyclerFornecedoresAdapter extends RecyclerView.Adapter<RecyclerFo
     @Override
     public int getItemCount() {
         return dadosPesquisa.size();
+    }
+
+    public Fornecedor getItem(int position){
+        return dados.get(position);
     }
 
     @Override

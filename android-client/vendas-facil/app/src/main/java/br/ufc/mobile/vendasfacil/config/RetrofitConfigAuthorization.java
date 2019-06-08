@@ -3,6 +3,7 @@ package br.ufc.mobile.vendasfacil.config;
 import java.io.IOException;
 
 import br.ufc.mobile.vendasfacil.service.ClienteService;
+import br.ufc.mobile.vendasfacil.service.FornecedorService;
 import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -38,6 +39,10 @@ public class RetrofitConfigAuthorization {
 
     public ClienteService getClienteService(){
         return this.retrofit.create(ClienteService.class);
+    }
+
+    public FornecedorService getFornecedorService(){
+        return this.retrofit.create(FornecedorService.class);
     }
 
 }

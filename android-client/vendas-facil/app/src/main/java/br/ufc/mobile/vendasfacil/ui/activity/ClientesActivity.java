@@ -35,9 +35,9 @@ public class ClientesActivity extends AppCompatActivity implements VendasFacilVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new ClientesPresenterImpl(this);
-
         setContentView(R.layout.activity_clientes);
+
+        mPresenter = new ClientesPresenterImpl(this);
         setUpToolbar();
         setUpListClientes();
     }
