@@ -1,15 +1,21 @@
 package br.ufc.mobile.vendasfacil.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,13 +29,13 @@ import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerClientesAdapter;
 public class ClientesActivity extends AppCompatActivity implements VendasFacilView.ViewMaster<Cliente> {
 
     private RecyclerView recyclerClientes;
-    private ClientesPresenter presenter;
+    private ClientesPresenter mPresenter;
     private RecyclerClientesAdapter adapterClientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new ClientesPresenterImpl(this);
+        mPresenter = new ClientesPresenterImpl(this);
 
         setContentView(R.layout.activity_clientes);
         setUpToolbar();
@@ -38,7 +44,7 @@ public class ClientesActivity extends AppCompatActivity implements VendasFacilVi
 
     @Override
     protected void onResume() {
-        setUpListProdutosAdapter();
+        mPresenter.loadAdapterData();
         super.onResume();
     }
 
@@ -85,15 +91,42 @@ public class ClientesActivity extends AppCompatActivity implements VendasFacilVi
         recyclerClientes = findViewById(R.id.activity_clientes_recycler_clientes);
         recyclerClientes.setLayoutManager(new LinearLayoutManager(this));
 
-        setUpListProdutosAdapter();
-    }
-
-    private void setUpListProdutosAdapter() {
-        adapterClientes = new RecyclerClientesAdapter(presenter.getClientes());
+        adapterClientes = new RecyclerClientesAdapter();
         recyclerClientes.setAdapter(adapterClientes);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+                final Cliente cliente = adapterClientes.getItem(viewHolder.getAdapterPosition());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ClientesActivity.this);
+                builder.setMessage("Deseja realmente remover o cliente " + cliente.getNome() + "?")
+                        .setTitle("Remover cliente")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.delete(cliente);
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                adapterClientes.notifyItemChanged(viewHolder.getAdapterPosition());
+                            }
+                        })
+                        .create().show();
+            }
+        }).attachToRecyclerView(recyclerClientes);
+
+        mPresenter.loadAdapterData();
     }
 
-    public void openClienteDetails(android.view.View view) {
+    public void openClienteDetails(View view) {
         Intent it = new Intent(this, ClientesDetailsActivity.class);
         startActivityForResult(it, 0);
     }
@@ -102,5 +135,10 @@ public class ClientesActivity extends AppCompatActivity implements VendasFacilVi
     public void updateAdapter(List<Cliente> dados) {
         adapterClientes.setDados(dados);
         adapterClientes.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showText(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

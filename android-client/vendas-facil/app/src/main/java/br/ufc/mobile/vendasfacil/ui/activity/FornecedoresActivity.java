@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -103,5 +104,10 @@ public class FornecedoresActivity extends AppCompatActivity implements VendasFac
     public void updateAdapter(List<Fornecedor> dados) {
         adapterFornecedores.setDados(dados);
         adapterFornecedores.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showText(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

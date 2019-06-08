@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -103,5 +104,10 @@ public class ProdutosActivity extends AppCompatActivity implements VendasFacilVi
     public void updateAdapter(List<Produto> dados) {
         adapterProdutos.setDados(dados);
         adapterProdutos.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showText(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

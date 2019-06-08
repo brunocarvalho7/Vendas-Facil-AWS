@@ -4,25 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.Map;
-
 import br.ufc.mobile.vendasfacil.R;
-import br.ufc.mobile.vendasfacil.config.RetrofitConfig;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
 import br.ufc.mobile.vendasfacil.presenter.LoginPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.LoginPresenterImpl;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,

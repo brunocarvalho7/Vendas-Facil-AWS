@@ -24,9 +24,9 @@ public class RecyclerClientesAdapter extends RecyclerView.Adapter<RecyclerClient
     private List<Cliente> dados;
     private List<Cliente> dadosPesquisa;
 
-    public RecyclerClientesAdapter(List<Cliente> dados) {
-        this.dados = dados;
-        this.dadosPesquisa = new ArrayList<>(dados);
+    public RecyclerClientesAdapter() {
+        this.dados = new ArrayList<>();
+        this.dadosPesquisa = this.dados;
     }
 
     public void setDados(List<Cliente> dados){
@@ -53,6 +53,10 @@ public class RecyclerClientesAdapter extends RecyclerView.Adapter<RecyclerClient
     @Override
     public int getItemCount() {
         return dadosPesquisa.size();
+    }
+
+    public Cliente getItem(int position){
+        return dados.get(position);
     }
 
     @Override

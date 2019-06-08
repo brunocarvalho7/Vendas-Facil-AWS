@@ -9,11 +9,10 @@ public class RetrofitConfig {
     private final Retrofit retrofit;
 
     public RetrofitConfig(){
-        this.retrofit = new Retrofit
-                .Builder()
-                .baseUrl("http://3.82.154.221:8080/vendas-facil/api/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+        this.retrofit = new Retrofit.Builder()
+            .baseUrl("http://3.82.154.221:8080/vendas-facil/api/")
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build();
     }
 
     public UsuarioService getUsuarioService(){

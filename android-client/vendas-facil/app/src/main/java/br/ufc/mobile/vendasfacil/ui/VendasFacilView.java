@@ -6,21 +6,23 @@ import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
 
 public class VendasFacilView {
 
-    public interface ViewMaster<T>{
+    public interface IShowText{
+        void showText(String s);
+    }
+
+    public interface ViewMaster<T> extends IShowText{
         void updateAdapter(List<T> dados);
     }
 
-    public interface ViewDetails<T>{
+    public interface ViewDetails<T> extends IShowText{
         T getData();
         void finishActivity();
-        void showText(String s);
     }
 
-    public interface ViewLogin{
+    public interface ViewLogin extends IShowText{
         UsuarioDTO getData();
         void abrirActivityPrincipal();
         void abrirActivitySignUp();
-        void showText(String s);
     }
 
 }
