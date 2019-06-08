@@ -7,14 +7,14 @@ import br.ufc.mobile.vendasfacil.dao.DataStatus;
 import br.ufc.mobile.vendasfacil.dao.impl.ClienteDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesPresenter;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 
 public class ClientesPresenterImpl implements ClientesPresenter, DataStatus<Cliente> {
 
     private ClienteDao dao;
-    private View.ViewMaster view;
+    private VendasFacilView.ViewMaster view;
 
-    public ClientesPresenterImpl(View.ViewMaster view){
+    public ClientesPresenterImpl(VendasFacilView.ViewMaster view){
         dao = new ClienteDaoImpl(this);
         this.view = view;
     }

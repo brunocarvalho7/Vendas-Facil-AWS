@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -18,10 +17,10 @@ import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ClientesPresenterImpl;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerClientesAdapter;
 
-public class ClientesActivity extends AppCompatActivity implements View.ViewMaster<Cliente> {
+public class ClientesActivity extends AppCompatActivity implements VendasFacilView.ViewMaster<Cliente> {
 
     private RecyclerView recyclerClientes;
     private ClientesPresenter presenter;

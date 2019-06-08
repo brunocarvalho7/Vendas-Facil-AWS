@@ -19,6 +19,7 @@ public class VendasFacilView {
     public interface ViewLogin{
         UsuarioDTO getData();
         void abrirActivityPrincipal();
+        void abrirActivitySignUp();
         void showText(String s);
     }
 

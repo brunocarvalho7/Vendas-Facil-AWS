@@ -7,14 +7,14 @@ import br.ufc.mobile.vendasfacil.dao.ProdutoDao;
 import br.ufc.mobile.vendasfacil.dao.impl.ProdutoDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.presenter.ProdutosPresenter;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 
 public class ProdutosPresenterImpl implements ProdutosPresenter, DataStatus<Produto> {
 
     private ProdutoDao dao;
-    private View.ViewMaster view;
+    private VendasFacilView.ViewMaster view;
 
-    public ProdutosPresenterImpl(View.ViewMaster view){
+    public ProdutosPresenterImpl(VendasFacilView.ViewMaster view){
         dao = new ProdutoDaoImpl(this);
         this.view = view;
     }

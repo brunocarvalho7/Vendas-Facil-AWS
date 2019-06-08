@@ -14,6 +14,7 @@ import java.util.Map;
 
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.config.RetrofitConfig;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
 import br.ufc.mobile.vendasfacil.presenter.LoginPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.LoginPresenterImpl;
@@ -24,7 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements
-        View.OnClickListener, VendasFacilView.ViewLogin {
+        View.OnClickListener,
+        VendasFacilView.ViewLogin,
+        SignUpActivity.OnConfirmCadastroListener{
 
     private LoginPresenter mPresenter;
     private TextInputEditText txtEmail, txtSenha;
@@ -42,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements
         txtEmail = findViewById(R.id.activity_login_email);
         txtSenha = findViewById(R.id.activity_login_senha);
         findViewById(R.id.activity_login_btn_signin).setOnClickListener(this);
+        findViewById(R.id.activity_login_btn_signup).setOnClickListener(this);
     }
 
 
@@ -63,6 +67,12 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void abrirActivitySignUp() {
+        SignUpActivity signUpActivity = new SignUpActivity();
+        signUpActivity.show(getSupportFragmentManager(), "SignUp");
+    }
+
+    @Override
     public void showText(String s) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
@@ -70,5 +80,10 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public UsuarioDTO getData() {
         return new UsuarioDTO(txtEmail.getText().toString(), txtSenha.getText().toString());
+    }
+
+    @Override
+    public void onConfirm(Usuario usuario) {
+        mPresenter.performSignUp(usuario);
     }
 }

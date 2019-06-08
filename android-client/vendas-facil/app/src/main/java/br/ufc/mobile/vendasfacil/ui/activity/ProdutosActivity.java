@@ -15,12 +15,12 @@ import java.util.List;
 
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.model.Produto;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerProdutosAdapter;
 import br.ufc.mobile.vendasfacil.presenter.ProdutosPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ProdutosPresenterImpl;
 
-public class ProdutosActivity extends AppCompatActivity implements View.ViewMaster<Produto> {
+public class ProdutosActivity extends AppCompatActivity implements VendasFacilView.ViewMaster<Produto> {
 
     private RecyclerView recyclerProdutos;
     private RecyclerProdutosAdapter adapterProdutos;

@@ -24,9 +24,9 @@ import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.model.enums.Unidade;
 import br.ufc.mobile.vendasfacil.presenter.ProdutosDetailsPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ProdutosDetailsPresenterImpl;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 
-public class ProdutosDetailsActivity extends AppCompatActivity implements View.ViewDetails<Produto> {
+public class ProdutosDetailsActivity extends AppCompatActivity implements VendasFacilView.ViewDetails<Produto> {
 
     private Produto p;
     private ProdutosDetailsPresenter presenter;

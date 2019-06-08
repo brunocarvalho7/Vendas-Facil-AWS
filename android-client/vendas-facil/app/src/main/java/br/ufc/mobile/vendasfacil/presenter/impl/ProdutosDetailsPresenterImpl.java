@@ -4,14 +4,14 @@ import br.ufc.mobile.vendasfacil.dao.ProdutoDao;
 import br.ufc.mobile.vendasfacil.dao.impl.ProdutoDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.presenter.ProdutosDetailsPresenter;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 
 public class ProdutosDetailsPresenterImpl implements ProdutosDetailsPresenter {
 
-    View.ViewDetails<Produto> mView;
+    VendasFacilView.ViewDetails<Produto> mView;
     ProdutoDao produtoDao;
 
-    public ProdutosDetailsPresenterImpl(View.ViewDetails mView){
+    public ProdutosDetailsPresenterImpl(VendasFacilView.ViewDetails mView){
         this.mView = mView;
         produtoDao = new ProdutoDaoImpl(null);
     }

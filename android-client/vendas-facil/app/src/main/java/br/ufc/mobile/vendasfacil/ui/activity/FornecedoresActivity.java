@@ -17,10 +17,10 @@ import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.presenter.FornecedoresPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.FornecedoresPresenterImpl;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerFornecedoresAdapter;
 
-public class FornecedoresActivity extends AppCompatActivity implements View.ViewMaster<Fornecedor>{
+public class FornecedoresActivity extends AppCompatActivity implements VendasFacilView.ViewMaster<Fornecedor>{
 
     private RecyclerView recyclerFornecedores;
     private FornecedoresPresenter presenter;
