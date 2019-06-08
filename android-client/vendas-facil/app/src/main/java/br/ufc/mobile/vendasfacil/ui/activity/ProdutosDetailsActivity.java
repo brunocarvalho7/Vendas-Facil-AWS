@@ -49,7 +49,6 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
 
         setUpToolbar();
         setUpUnidade();
-        setUpCategoria();
 
         this.bindData();
     }
@@ -95,9 +94,6 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
 
         if(p.getUnidade() != null)
             ((MaterialBetterSpinner) findViewById(R.id.spinnerProdutoUnidade)).setText(p.getUnidade().toString());
-
-        if(p.getCategoria() != null)
-        ((AutoCompleteTextView) findViewById(R.id.textCategoria)).setText(p.getCategoria().toString());
     }
 
     @Override
@@ -135,19 +131,6 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void setUpCategoria() {
-        ArrayAdapter<Categoria> categoriaArrayAdapter = new ArrayAdapter<Categoria>(this,
-                android.R.layout.simple_list_item_1, CategoriaRepository.getInstance().getAll());
-        final AutoCompleteTextView textCategoria = findViewById(R.id.textCategoria);
-        textCategoria.setAdapter(categoriaArrayAdapter);
-        textCategoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                p.setCategoria(((Categoria) textCategoria.getAdapter().getItem(position)));
-            }
-        });
     }
 
     private void setUpUnidade() {

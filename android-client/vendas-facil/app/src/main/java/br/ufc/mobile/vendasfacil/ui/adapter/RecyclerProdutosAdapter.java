@@ -24,9 +24,9 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
     private List<Produto> dados;
     private List<Produto> dadosPesquisa;
 
-    public RecyclerProdutosAdapter(List<Produto> dados) {
-        this.dados = dados;
-        this.dadosPesquisa = new ArrayList<>(dados);
+    public RecyclerProdutosAdapter() {
+        this.dados = new ArrayList<>();
+        this.dadosPesquisa = this.dados;
     }
 
     public void setDados(List<Produto> dados) {
@@ -55,6 +55,10 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
     @Override
     public int getItemCount() {
         return dadosPesquisa.size();
+    }
+
+    public Produto getItem(int position){
+        return dados.get(position);
     }
 
     @Override

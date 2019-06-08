@@ -77,8 +77,8 @@ public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPres
                 });
             }
         }else{
-            mView.showText("Informe as informações do cliente");
+            mView.showText("Informe as informações do produto");
         }
     }
-    
+
 }

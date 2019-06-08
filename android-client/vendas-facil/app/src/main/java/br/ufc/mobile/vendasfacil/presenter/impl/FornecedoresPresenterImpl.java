@@ -31,9 +31,9 @@ public class FornecedoresPresenterImpl implements FornecedoresPresenter {
             @Override
             public void onResponse(Call<List<Fornecedor>> call, Response<List<Fornecedor>> response) {
                 if(response.isSuccessful()){
-                    List<Fornecedor> clientes = response.body();
+                    List<Fornecedor> fornecedores = response.body();
 
-                    mView.updateAdapter(clientes);
+                    mView.updateAdapter(fornecedores);
 
                 }else {
                     APIUtils.getInstance().onRequestError(response, mView);

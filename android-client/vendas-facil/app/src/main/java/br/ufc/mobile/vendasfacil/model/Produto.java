@@ -2,7 +2,7 @@ package br.ufc.mobile.vendasfacil.model;
 
 import android.support.annotation.Nullable;
 
-import com.google.firebase.database.Exclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -79,10 +79,6 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
-    /*public String getCategoriaKey(){
-        return String.valueOf(categoria.getId());
-    }*/
-
     public Double getRsCompra() {
         return rsCompra;
     }
@@ -107,7 +103,7 @@ public class Produto implements Serializable {
         this.estoque = estoque;
     }
 
-    @Exclude
+    @JsonIgnore
     public String getEstoqueText(){
         if(getEstoque() > 0) {
             if (getUnidade().equals(Unidade.UND))
@@ -118,12 +114,12 @@ public class Produto implements Serializable {
         return "Sem estoque";
     }
 
-    @Exclude
+    @JsonIgnore
     public String getRsVendaText(){
         return "R$ "+String.format("%.2f", getRsVenda());
     }
 
-    @Exclude
+    @JsonIgnore
     public boolean isValid(){
         return descricao.trim().length() > 0 &&
                unidade != null &&
