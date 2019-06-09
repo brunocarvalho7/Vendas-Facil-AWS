@@ -1,7 +1,7 @@
 package br.ufc.mobile.vendasfacil.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ public class Venda {
 	private String id;
 	
 	@NotNull
-    private LocalDateTime data;
+    private Date data;
 
 	@OneToOne
     private Cliente cliente;
@@ -37,7 +37,7 @@ public class Venda {
     private FormaPagamento formaPagamento;
 
     public Venda() {
-        this.data = LocalDateTime.now();
+        this.data = new Date(System.currentTimeMillis());
         this.itens = new ArrayList<>();
     }
 
@@ -49,11 +49,11 @@ public class Venda {
         this.id = id;
     }
 
-    public LocalDateTime getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

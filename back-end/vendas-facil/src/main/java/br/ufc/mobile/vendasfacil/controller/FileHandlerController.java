@@ -19,7 +19,7 @@ public class FileHandlerController {
     @PostMapping
     public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
-        this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
+        //this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "file [" + file.getOriginalFilename() + "] uploading request submitted successfully.");

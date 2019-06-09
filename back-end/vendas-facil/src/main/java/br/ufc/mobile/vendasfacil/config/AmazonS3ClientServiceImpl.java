@@ -19,6 +19,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import br.ufc.mobile.vendasfacil.interfaces.AmazonS3ClientService;
+import br.ufc.mobile.vendasfacil.model.Produto;
 
 @Component
 public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
@@ -37,9 +38,12 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
 
 	@Override
 	@Async
-	public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
-		String fileName = multipartFile.getOriginalFilename();
+	public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess, Produto produto) {
+		String originalFileName = multipartFile.getOriginalFilename();
+		String formatoArquivo = originalFileName.substring(originalFileName.indexOf('.'));
 
+		String fileName = produto.getId() + formatoArquivo;
+			
         try {
             //creating the file in the server (temporarily)
             File file = new File(fileName);
@@ -47,7 +51,7 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
             fos.write(multipartFile.getBytes());
             fos.close();
 
-            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, fileName, file);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, "produtos/" + fileName, file);
 
             if (enablePublicReadAccess) {
                 putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
