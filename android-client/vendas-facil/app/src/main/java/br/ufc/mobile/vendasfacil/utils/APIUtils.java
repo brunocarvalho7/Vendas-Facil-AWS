@@ -15,6 +15,7 @@ public class APIUtils {
     public static final String MSG_ERRO_LOCALIZAR_TODOS = "Erro ao localizar todos ";
     public static final String MSG_ERRO_SALVAR = "Erro ao salvar ";
     public static final String MSG_ERRO_ATUALIZAR = "Erro ao atualizar ";
+    public static final String MSG_ERRO_LOCALIZAR_BARCODE = "Erro ao localizar o produto pelo codigo de barras ";
     private static APIUtils instance;
 
     private RetrofitConfig retrofitConfig;

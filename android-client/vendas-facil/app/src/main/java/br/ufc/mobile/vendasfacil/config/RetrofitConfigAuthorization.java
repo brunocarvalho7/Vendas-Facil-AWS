@@ -5,6 +5,7 @@ import java.io.IOException;
 import br.ufc.mobile.vendasfacil.service.ClienteService;
 import br.ufc.mobile.vendasfacil.service.FornecedorService;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
+import br.ufc.mobile.vendasfacil.service.VendaService;
 import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -48,6 +49,10 @@ public class RetrofitConfigAuthorization {
 
     public ProdutoService getProdutoService(){
         return this.retrofit.create(ProdutoService.class);
+    }
+
+    public VendaService getVendaService(){
+        return this.retrofit.create(VendaService.class);
     }
 
 }

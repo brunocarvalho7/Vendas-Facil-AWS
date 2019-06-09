@@ -1,9 +1,7 @@
 package br.ufc.mobile.vendasfacil.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import java.util.List;
 
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.model.Produto;
-import br.ufc.mobile.vendasfacil.ui.activity.ProdutosDetailsActivity;
 
 public class RecyclerProdutosVendaAdapter
         extends RecyclerView.Adapter<RecyclerProdutosVendaAdapter.CustomViewHolder> implements Filterable {
@@ -26,9 +23,9 @@ public class RecyclerProdutosVendaAdapter
     private List<Produto> dadosPesquisa;
     private onRecyclerItemSelectedListener listener;
 
-    public RecyclerProdutosVendaAdapter(List<Produto> dados, onRecyclerItemSelectedListener listener) {
-        this.dados = dados;
-        this.dadosPesquisa = new ArrayList<>(dados);
+    public RecyclerProdutosVendaAdapter(onRecyclerItemSelectedListener listener) {
+        this.dados = new ArrayList<>();
+        this.dadosPesquisa = this.dados;
         this.listener = listener;
     }
 

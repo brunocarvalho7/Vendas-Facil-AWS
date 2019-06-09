@@ -59,7 +59,7 @@ public class PrincipalActivity extends AppCompatActivity
         setUpUser();
         setUpLogout();
 
-        doReports();
+      //  doReports();
     }
 
     @Override

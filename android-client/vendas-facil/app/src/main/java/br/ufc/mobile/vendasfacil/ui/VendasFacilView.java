@@ -1,8 +1,11 @@
 package br.ufc.mobile.vendasfacil.ui;
 
+import android.support.annotation.StringRes;
+
 import java.util.List;
 
 import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
+import br.ufc.mobile.vendasfacil.model.Venda;
 
 public class VendasFacilView {
 
@@ -23,6 +26,14 @@ public class VendasFacilView {
         UsuarioDTO getData();
         void abrirActivityPrincipal();
         void abrirActivitySignUp();
+    }
+
+    public interface ViewVendas extends IShowText{
+        void notifyAdapterItensDataSetChanged();
+        void setButtonTotalText(String newText);
+        void setButtonTotalText(@StringRes int resid);
+        void setButtonClienteText(String newText);
+        void openVendasPagamentoActivity(Venda venda);
     }
 
 }

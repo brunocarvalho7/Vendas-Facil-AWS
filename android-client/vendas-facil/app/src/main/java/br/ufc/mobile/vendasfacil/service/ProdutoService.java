@@ -21,9 +21,11 @@ public interface ProdutoService {
 
     @GET("produtos")
     Call<List<Produto>> findAll();
-
     @GET("produtos/{produto}")
     Call<Produto> findById(@Path("produto") String id);
+
+    @GET("produtos/barcode/{codBarras}")
+    Call<Produto> findByBarCode(@Path("codBarras") String barcode);
 
     @DELETE("produtos/{produto}")
     Call<Boolean> delete(@Path("produto") String id);

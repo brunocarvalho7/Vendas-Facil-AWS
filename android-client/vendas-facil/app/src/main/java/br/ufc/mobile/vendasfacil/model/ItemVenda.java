@@ -2,7 +2,7 @@ package br.ufc.mobile.vendasfacil.model;
 
 import android.support.annotation.Nullable;
 
-import com.google.firebase.database.Exclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -32,17 +32,12 @@ public class ItemVenda implements Serializable {
         this.id = id;
     }
 
-    @Exclude
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
-
-    public String getProdutoKey() {
-        return this.produto.getId();
     }
 
     public double getQtd() {
@@ -61,12 +56,12 @@ public class ItemVenda implements Serializable {
         return getQtd() * getProduto().getRsVenda();
     }
 
-    @Exclude
+    @JsonIgnore
     public String getQtdText(){
        return String.format("%.3f", getQtd());
     }
 
-    @Exclude
+    @JsonIgnore
     public String getTotalText(){
         return "R$ "+String.format("%.2f", getQtd() * getProduto().getRsVenda());
     }
