@@ -34,6 +34,8 @@ import com.google.zxing.integration.android.IntentResult;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -158,8 +160,9 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+            resizeImage();
             setPic();
-            galleryAddPic();
+            //galleryAddPic();
             testUpload();
         }else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -292,8 +295,37 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         this.sendBroadcast(mediaScanIntent);
     }
 
+    private void resizeImage(){
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+
+        Log.e("ProdutosDetails", "Width: " + bitmap.getWidth());
+        Log.e("ProdutosDetails", "Height: " + bitmap.getHeight());
+
+        double newHeigth = ((400.0 / bitmap.getHeight()) * bitmap.getHeight());
+        double newWidth = ((400.0 / bitmap.getWidth()) * bitmap.getWidth());
+
+        Log.e("ProdutosDetails", "NewWidth: " + newHeigth);
+        Log.e("ProdutosDetails", "NewHeight: " + newWidth);
+
+        Bitmap bmpResized = Bitmap.createScaledBitmap(bitmap, (int) newWidth, (int) newHeigth, true);
+
+        File file = new File(currentPhotoPath);
+        try {
+            FileOutputStream fOut = new FileOutputStream(file);
+            bmpResized.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+
+
+            fOut.flush();
+            fOut.close();;
+        } catch (IOException e) {
+            Log.e("ProdutosDetails", "Error on resizeImage: " + e.getMessage());
+        }
+    }
+
     private void setPic() {
-        // Get the dimensions of the View
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+        imageView.setImageBitmap(bitmap);
+        /*// Get the dimensions of the View
         int targetW = imageView.getWidth();
         int targetH = imageView.getHeight();
 
@@ -313,7 +345,7 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(bitmap);*/
     }
 
 }
