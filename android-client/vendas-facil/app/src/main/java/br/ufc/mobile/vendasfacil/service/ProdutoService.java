@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -34,7 +35,8 @@ public interface ProdutoService {
     @DELETE("produtos/{produto}")
     Call<Boolean> delete(@Path("produto") String id);
 
+    @Multipart
     @POST("produtos/{produto}/photo")
-    Call<Map<String, String>> uploadPhoto(@Path("produto") Produto produto, @Part MultipartBody.Part file);
+    Call<Map<String, String>> uploadPhoto(@Path("produto") Produto produto, @Part("file") RequestBody file);
 
 }

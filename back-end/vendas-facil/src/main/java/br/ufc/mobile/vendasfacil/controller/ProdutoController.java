@@ -94,7 +94,7 @@ public class ProdutoController implements ISimpleController<Produto>{
 		return ResponseEntity.ok(produtoService.delete(produto));
 	}
 	
-	@PostMapping("/{produto}/phot o")
+	@PostMapping("/{produto}/photo")
     public Map<String, String> uploadPhoto(@PathVariable Produto produto,  @RequestPart(value = "file") MultipartFile file)
     {
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true, produto);

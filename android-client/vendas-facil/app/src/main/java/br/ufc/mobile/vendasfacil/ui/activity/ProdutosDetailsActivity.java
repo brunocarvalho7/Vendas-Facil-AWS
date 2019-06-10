@@ -6,6 +6,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,11 +60,13 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE  = 1001;
+    private static final int REQUEST_TAKE_PHOTO  = 1002;
+
     private Produto p;
     private ProdutosDetailsPresenter presenter;
     private ImageView imageView;
-    private Uri image_uri;
     private RetrofitConfigAuthorization retrofitConfigAuthorization;
+    private String currentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,33 +157,10 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK){
-            Log.i("ProdutosDetails", "onActivityResult: "+image_uri.getPath());
-            imageView.setImageURI(image_uri);
-
-            String filePath = getRealPathFromURIPath(image_uri, ProdutosDetailsActivity.this);
-            Log.i("ProdutosDetails", "onActivityResult: " + filePath);
-            File file = new File(filePath);
-            RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-
-            Call<Map<String, String>> callUpload = this.retrofitConfigAuthorization.getProdutoService().uploadPhoto(p, fileToUpload);
-            callUpload.enqueue(new Callback<Map<String, String>>() {
-                @Override
-                public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
-                    if(response.isSuccessful()){
-                        Toast.makeText(ProdutosDetailsActivity.this, "Sucesso", Toast.LENGTH_SHORT).show();
-                    }else{
-                        APIUtils.getInstance().onRequestError(response, ProdutosDetailsActivity.this);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Map<String, String>> call, Throwable t) {
-                    APIUtils.getInstance().onRequestFailure("Teste", "Erro ", t, ProdutosDetailsActivity.this);
-                }
-            });
-
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+            setPic();
+            galleryAddPic();
+            testUpload();
         }else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (result != null) {
@@ -188,9 +169,47 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
                 }
             }
         }
-
-        //super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void testUpload() {
+        File file = new File(currentPhotoPath);
+        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+        Call<Map<String, String>> callUpload =
+                this.retrofitConfigAuthorization.getProdutoService().uploadPhoto(p, mFile);
+        callUpload.enqueue(new Callback<Map<String, String>>() {
+            @Override
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(ProdutosDetailsActivity.this, "Sucesso", Toast.LENGTH_SHORT).show();
+                }else{
+                    APIUtils.getInstance().onRequestError(response, ProdutosDetailsActivity.this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+                APIUtils.getInstance().onRequestFailure("Teste", "Erro ", t, ProdutosDetailsActivity.this);
+            }
+        });
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
 
     private void setUpToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -225,18 +244,31 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         }else{
             openCamera();
         }
+
+
     }
 
     private void openCamera() {
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "New picture");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the camera");
-
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Toast.makeText(this, "Erro: "+ex.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("ProdutosDetails", "dispatchTakePictureIntent: " + ex.getMessage() );
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "br.ufc.mobile.vendasfacil",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
     }
 
     @Override
@@ -252,14 +284,36 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         }
     }
 
-    private String getRealPathFromURIPath(Uri contentURI, Activity activity) {
-        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            return contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(idx);
-        }
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
+
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(currentPhotoPath);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+        imageView.setImageBitmap(bitmap);
+    }
+
 }
