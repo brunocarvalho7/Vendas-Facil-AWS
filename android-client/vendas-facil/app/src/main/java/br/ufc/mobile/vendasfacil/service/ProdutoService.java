@@ -1,14 +1,18 @@
 package br.ufc.mobile.vendasfacil.service;
 
 import java.util.List;
+import java.util.Map;
 
 import br.ufc.mobile.vendasfacil.model.Produto;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ProdutoService {
@@ -29,5 +33,8 @@ public interface ProdutoService {
 
     @DELETE("produtos/{produto}")
     Call<Boolean> delete(@Path("produto") String id);
+
+    @POST("produtos/{produto}/photo")
+    Call<Map<String, String>> uploadPhoto(@Path("produto") Produto produto, @Part MultipartBody.Part file);
 
 }

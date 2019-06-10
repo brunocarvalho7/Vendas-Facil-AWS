@@ -31,6 +31,12 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/activity_produtos_details_image"
+                android:src="@drawable/ic_search"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:onClick="dispatchTakePictureIntent"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -116,6 +122,9 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+
+
 
         </LinearLayout>
     </ScrollView>
