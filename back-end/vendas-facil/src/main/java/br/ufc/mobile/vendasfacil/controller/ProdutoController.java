@@ -95,8 +95,13 @@ public class ProdutoController implements ISimpleController<Produto>{
 	}
 	
 	@PostMapping("/{produto}/photo")
-    public Map<String, String> uploadPhoto(@PathVariable Produto produto,  @RequestPart(value = "file") MultipartFile file)
-    {
+    public Map<String, String> uploadPhoto(@PathVariable Produto produto,  @RequestPart(value = "file") MultipartFile file){
+		if(produto == null)
+			throw new NotFoundException("O produto que você está tentando salvar a foto não foi localizado!");
+		
+		if(file == null)
+			throw new VendasFacilException("Ops, há um erro com essa foto do produto!");
+		
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true, produto);
 
         Map<String, String> response = new HashMap<>();

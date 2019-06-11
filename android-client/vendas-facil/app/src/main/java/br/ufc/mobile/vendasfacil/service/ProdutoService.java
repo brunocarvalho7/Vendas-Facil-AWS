@@ -37,6 +37,6 @@ public interface ProdutoService {
 
     @Multipart
     @POST("produtos/{produto}/photo")
-    Call<Map<String, String>> uploadPhoto(@Path("produto") Produto produto, @Part("file") RequestBody file);
+    Call<Map<String, String>> uploadPhoto(@Path("produto") String id, @Part("file") MultipartBody file);
 
 }

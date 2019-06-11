@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,12 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int i) {
         Produto produto = dadosPesquisa.get(i);
+
+        Picasso
+            .get()
+            .load("https://vendas-facil.s3.amazonaws.com/thumbs-produtos/" + produto.getId()+".jpg")
+            .error(R.drawable.ic_sem_imagem)
+            .into(customViewHolder.imgProduto);
 
         customViewHolder.txtDescricao.setText(produto.getDescricao());
         customViewHolder.txtValor.setText(produto.getRsVendaText());
@@ -98,6 +107,7 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
 
+        public ImageView imgProduto;
         public TextView txtDescricao;
         public TextView txtValor;
         public TextView txtQtd;
@@ -105,6 +115,7 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
         public CustomViewHolder(@NonNull View itemView, final Context context) {
             super(itemView);
 
+            imgProduto   = itemView.findViewById(R.id.imgProduto);
             txtDescricao = itemView.findViewById(R.id.txtDescricao);
             txtValor     = itemView.findViewById(R.id.txtValor);
             txtQtd       = itemView.findViewById(R.id.txtQtd);

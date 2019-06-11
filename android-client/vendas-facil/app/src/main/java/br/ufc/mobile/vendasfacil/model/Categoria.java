@@ -1,27 +1,27 @@
 package br.ufc.mobile.vendasfacil.model;
 
-import com.google.firebase.database.Exclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
 public class Categoria implements Serializable {
 
-    private Integer id;
+    private String id;
     private String descricao;
 
     public Categoria(){
     }
 
-    public Categoria(Integer id, String descricao) {
+    public Categoria(String id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,7 +33,7 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-    @Exclude
+    @JsonIgnore
     public boolean isValid(){
         return descricao.trim().length() > 0;
     }
