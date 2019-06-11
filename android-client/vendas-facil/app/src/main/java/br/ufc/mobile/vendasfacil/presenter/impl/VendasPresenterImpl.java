@@ -126,6 +126,8 @@ public class VendasPresenterImpl implements VendasPresenter {
     public void checkoutVenda() {
         if(venda.getItens().size() == 0) {
             mView.showText("Insira itens na venda para continuar");
+        }else if(venda.getCliente() == null) {
+                mView.showText("Informe o cliente da venda");
         }else {
             mView.openVendasPagamentoActivity(venda);
         }

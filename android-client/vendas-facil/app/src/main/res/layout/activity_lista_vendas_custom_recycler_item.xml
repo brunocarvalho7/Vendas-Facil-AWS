@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/activity_lista_vendas_custom_recycler_img"
+        android:layout_width="64dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_money_black"/>
+
+    <TextView
+        android:id="@+id/activity_lista_vendas_custom_recycler_item_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="3f3c2521-9e67-4264-930e-2a4d53ef00bd"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@id/activity_lista_vendas_custom_recycler_img"
+        android:layout_toEndOf="@id/activity_lista_vendas_custom_recycler_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_lista_vendas_custom_recycler_item_data"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="11/06/2019"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/activity_lista_vendas_custom_recycler_item_id"
+        android:layout_toEndOf="@id/activity_lista_vendas_custom_recycler_img"/>
+
+    <TextView
+        android:id="@+id/activity_lista_vendas_custom_recycler_item_forma_pagamento"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Dinheiro"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/activity_lista_vendas_custom_recycler_item_id"
+        android:layout_toEndOf="@id/activity_lista_vendas_custom_recycler_item_data"/>
+
+    <TextView
+        android:id="@+id/activity_lista_vendas_custom_recycler_item_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Bruno de Carvalho Sobrinho"
+        android:layout_below="@id/activity_lista_vendas_custom_recycler_item_data"
+        android:layout_toEndOf="@id/activity_lista_vendas_custom_recycler_img"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="43dp" />
+
+    <TextView
+        android:id="@+id/activity_lista_vendas_custom_recycler_item_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="R$ 25,60"
+        android:layout_below="@id/activity_lista_vendas_custom_recycler_item_cliente"
+        android:layout_toEndOf="@id/activity_lista_vendas_custom_recycler_img"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="43dp" />
+</RelativeLayout>

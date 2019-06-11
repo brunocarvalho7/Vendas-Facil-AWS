@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
 import br.ufc.mobile.vendasfacil.model.Categoria;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.CategoriaService;
 
 @RestController
@@ -31,7 +33,8 @@ public class CategoriaController implements ISimpleController<Categoria>{
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Categoria> save(@Valid @RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> save(@Valid @RequestBody Categoria categoria,
+			@AuthenticationPrincipal Usuario usuario) {
 		Categoria categoriaSaved = categoriaService.save(categoria);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -51,8 +54,8 @@ public class CategoriaController implements ISimpleController<Categoria>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Categoria>> findAll() {
-		return ResponseEntity.ok(categoriaService.findAll());
+	public ResponseEntity<Collection<Categoria>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(categoriaService.findAll(usuario));
 	}
 
 	@Override

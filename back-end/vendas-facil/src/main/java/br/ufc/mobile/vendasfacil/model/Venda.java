@@ -35,6 +35,8 @@ public class Venda {
     
     @NotNull
     private FormaPagamento formaPagamento;
+    
+    private Usuario vendedor;
 
     public Venda() {
         this.data = new Date(System.currentTimeMillis());
@@ -115,6 +117,14 @@ public class Venda {
     
     public FormaPagamento getFormaPagamento(){
         return formaPagamento;
+    }
+    
+    public void setVendedor(Usuario vendedor) {
+    	this.vendedor = vendedor;
+    }
+    
+    public Usuario getVendedor() {
+    	return vendedor;
     }
     
     private void calcularTotal(){

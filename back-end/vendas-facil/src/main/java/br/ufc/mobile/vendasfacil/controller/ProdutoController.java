@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import br.ufc.mobile.vendasfacil.exception.VendasFacilException;
 import br.ufc.mobile.vendasfacil.interfaces.AmazonS3ClientService;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
 import br.ufc.mobile.vendasfacil.model.Produto;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
 
 @RestController
@@ -40,7 +42,8 @@ public class ProdutoController implements ISimpleController<Produto>{
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Produto> save(@Valid @RequestBody Produto produto){
+	public ResponseEntity<Produto> save(@Valid @RequestBody Produto produto,
+			@AuthenticationPrincipal Usuario usuario){
 		Produto produtoSaved = produtoService.save(produto);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,8 +63,8 @@ public class ProdutoController implements ISimpleController<Produto>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Produto>> findAll() {
-		return ResponseEntity.ok(produtoService.findAll());
+	public ResponseEntity<Collection<Produto>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(produtoService.findAll(usuario));
 	}
 
 	@Override

@@ -89,6 +89,10 @@ public class PrincipalActivity extends AppCompatActivity
             openFornecedorActivity();
         }else if (id == R.id.menu_drawer_produto) {
             openProdutosActivity();
+        }else if(id == R.id.menu_drawer_venda){
+            openListaVendasActivity();
+        }else if(id == R.id.menu_drawer_venda_grafico){
+            openVendasGraficoActivity();
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -185,6 +189,14 @@ public class PrincipalActivity extends AppCompatActivity
 
     public void openVendasActivity(View view){
         startActivity(new Intent(this, VendasActivity.class));
+    }
+
+    private void openListaVendasActivity() {
+        startActivity(new Intent(this, ListaVendasActivity.class));
+    }
+
+    private void openVendasGraficoActivity() {
+        startActivity(new Intent(this, VendasGraficosActivity.class));
     }
 
     public void doReports(){

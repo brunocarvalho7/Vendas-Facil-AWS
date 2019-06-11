@@ -153,12 +153,4 @@ public class VendasActivity extends AppCompatActivity implements
         startActivity(it);
     }
 
-    /*TODO: Colocar cliente padrão
-    @Override
-    public void DataIsLoaded(List<Cliente> dados) {
-        if(venda.getCliente() == null) {
-            onClienteSelected(clienteDao.getClientePadrao());
-        }
-    }
-    */
 }

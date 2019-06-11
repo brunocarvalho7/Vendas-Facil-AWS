@@ -3,6 +3,7 @@ package br.ufc.mobile.vendasfacil.model;
 import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 import br.ufc.mobile.vendasfacil.model.enums.FormaPagamento;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Venda implements Serializable {
 
     public static final String KEY = "Venda";

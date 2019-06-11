@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.FornecedorService;
 
 @RestController
@@ -31,7 +33,8 @@ public class FornecedorController implements ISimpleController<Fornecedor>{
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Fornecedor> save(@Valid @RequestBody Fornecedor fornecedor) {
+	public ResponseEntity<Fornecedor> save(@Valid @RequestBody Fornecedor fornecedor,
+			@AuthenticationPrincipal Usuario usuario) {
 		Fornecedor fornecedorSaved = fornecedorService.save(fornecedor);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -51,8 +54,8 @@ public class FornecedorController implements ISimpleController<Fornecedor>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Fornecedor>> findAll() {
-		return ResponseEntity.ok(fornecedorService.findAll());
+	public ResponseEntity<Collection<Fornecedor>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(fornecedorService.findAll(usuario));
 	}
 
 	@Override
