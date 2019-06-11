@@ -22,6 +22,7 @@
     <string name="produtos_details_unidade">Tipo de Unidade</string>
     <string name="produtos_details_RsCompra">R$ Compra</string>
     <string name="produtos_details_RsVenda">R$ Venda</string>
+    <string name="produtos_details_estoque">Estoque</string>
     <string name="menu_confirmar">Confirmar</string>
     <string name="produtos_details_categoria">Categoria</string>
     <string name="title_activity_vendas">Nova venda</string>

@@ -131,6 +131,7 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
         p.setCodBarras( ((TextView)findViewById(R.id.txtProdutoCodBarras)).getText().toString() );
         p.setRsCompra(  Double.parseDouble(((TextView)findViewById(R.id.txtProdutoRsCompra)).getText().toString()) );
         p.setRsVenda(  Double.parseDouble(((TextView)findViewById(R.id.txtProdutoRsVenda)).getText().toString()) );
+        p.setEstoque(  Double.parseDouble(((TextView)findViewById(R.id.txtProdutoEstoque)).getText().toString()) );
         return p;
     }
 
@@ -170,6 +171,8 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements Vendas
                 String.format("%.2f", p.getRsCompra()));
         ((TextView) findViewById(R.id.txtProdutoRsVenda)).setText(
                 String.format("%.2f", p.getRsVenda()));
+        ((TextView) findViewById(R.id.txtProdutoEstoque)).setText(
+                String.format("%.2f", p.getEstoque()));
 
         if(p.getUnidade() != null)
             ((MaterialBetterSpinner) findViewById(R.id.spinnerProdutoUnidade)).setText(p.getUnidade().toString());
