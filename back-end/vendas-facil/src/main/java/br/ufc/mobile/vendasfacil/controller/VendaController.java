@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.model.ReportVendaDTO;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.model.Venda;
 import br.ufc.mobile.vendasfacil.service.VendaService;
@@ -75,6 +76,21 @@ public class VendaController implements ISimpleController<Venda>{
 			throw new NotFoundException("Venda não localizado");
 		
 		return ResponseEntity.ok(vendaService.delete(venda));
+	}
+	
+	@GetMapping("/reports/dia")
+	public ResponseEntity<ReportVendaDTO> reportByDia(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportByDia(usuario));
+	}
+	
+	@GetMapping("/reports/semana")
+	public ResponseEntity<Collection<ReportVendaDTO>> reportBySemana(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportBySemana(usuario));
+	}
+	
+	@GetMapping("/reports/mes")
+	public ResponseEntity<Collection<ReportVendaDTO>> reportByMes(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportByMes(usuario));
 	}
 	
 }

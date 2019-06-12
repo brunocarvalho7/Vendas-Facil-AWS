@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.activity.VendasGraficosActivity">
+
+<include layout="@layout/toolbar" />
+
+<com.github.mikephil.charting.charts.LineChart
+    android:id="@+id/chartVendas"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.VendasGraficosActivity">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
-
-</android.support.constraint.ConstraintLayout>
+</com.github.mikephil.charting.charts.LineChart>
+</RelativeLayout>

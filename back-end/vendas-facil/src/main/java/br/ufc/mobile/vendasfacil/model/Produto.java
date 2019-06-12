@@ -115,4 +115,12 @@ public class Produto {
     public void setEstoque(Double estoque) {
         this.estoque = estoque;
     }
+    
+    public void removerEstoque(Double qtd) {
+    	this.estoque -= qtd;
+    }
+    
+    public void adicionarEstoque(Double qtd) {
+    	this.estoque += qtd;
+    }
 }
