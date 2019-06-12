@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.model.ReportVendaDTO;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.model.Venda;
 import br.ufc.mobile.vendasfacil.service.VendaService;
 
@@ -31,7 +34,9 @@ public class VendaController implements ISimpleController<Venda>{
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Venda> save(@Valid @RequestBody Venda venda){
+	public ResponseEntity<Venda> save(@Valid @RequestBody Venda venda, 
+			@AuthenticationPrincipal Usuario usuario){
+		venda.setVendedor(usuario);
 		Venda vendaSaved = vendaService.save(venda);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -51,8 +56,8 @@ public class VendaController implements ISimpleController<Venda>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Venda>> findAll() {
-		return ResponseEntity.ok(vendaService.findAll());
+	public ResponseEntity<Collection<Venda>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.findAll(usuario));
 	}
 
 	@Override
@@ -71,6 +76,21 @@ public class VendaController implements ISimpleController<Venda>{
 			throw new NotFoundException("Venda não localizado");
 		
 		return ResponseEntity.ok(vendaService.delete(venda));
+	}
+	
+	@GetMapping("/reports/dia")
+	public ResponseEntity<ReportVendaDTO> reportByDia(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportByDia(usuario));
+	}
+	
+	@GetMapping("/reports/semana")
+	public ResponseEntity<Collection<ReportVendaDTO>> reportBySemana(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportBySemana(usuario));
+	}
+	
+	@GetMapping("/reports/mes")
+	public ResponseEntity<Collection<ReportVendaDTO>> reportByMes(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.reportByMes(usuario));
 	}
 	
 }

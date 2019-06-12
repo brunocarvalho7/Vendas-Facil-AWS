@@ -6,7 +6,9 @@ public class VendasFacilAuthenticationFirebase {
 
     private static VendasFacilAuthenticationFirebase instance;
 
+    private String token;
     private FirebaseUser user;
+    private String username;
 
     private VendasFacilAuthenticationFirebase(){
 
@@ -19,6 +21,14 @@ public class VendasFacilAuthenticationFirebase {
         return instance;
     }
 
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public String getToken(){
+        return token;
+    }
+
     public void setUserAuthenticated(FirebaseUser user){
         this.user = user;
     }
@@ -27,4 +37,11 @@ public class VendasFacilAuthenticationFirebase {
         return user;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername(){
+        return username;
+    }
 }

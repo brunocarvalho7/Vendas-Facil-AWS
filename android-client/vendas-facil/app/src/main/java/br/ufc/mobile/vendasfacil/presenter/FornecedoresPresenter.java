@@ -1,10 +1,12 @@
 package br.ufc.mobile.vendasfacil.presenter;
 
-import java.util.List;
-
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 
-public interface FornecedoresPresenter {
+public interface FornecedoresPresenter extends GenericPresenter<Fornecedor> {
 
-    List<Fornecedor> getFornecedores();
+    @Override
+    void loadAdapterData();
+
+    @Override
+    void delete(Fornecedor fornecedor);
 }

@@ -12,9 +12,9 @@ import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesDetailsPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ClientesDetailsPresenterImpl;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 
-public class ClientesDetailsActivity extends AppCompatActivity  implements View.ViewDetails<Cliente> {
+public class ClientesDetailsActivity extends AppCompatActivity  implements VendasFacilView.ViewDetails<Cliente> {
 
     private Cliente c;
     private ClientesDetailsPresenter presenter;

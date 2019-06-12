@@ -13,43 +13,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
-import java.util.List;
-
 import br.ufc.mobile.vendasfacil.R;
-import br.ufc.mobile.vendasfacil.dao.ClienteDao;
-import br.ufc.mobile.vendasfacil.dao.DataStatus;
-import br.ufc.mobile.vendasfacil.dao.ProdutoDao;
-import br.ufc.mobile.vendasfacil.dao.impl.ClienteDaoImpl;
-import br.ufc.mobile.vendasfacil.dao.impl.ProdutoDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.model.ItemVenda;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.model.Venda;
+import br.ufc.mobile.vendasfacil.presenter.VendasPresenter;
+import br.ufc.mobile.vendasfacil.presenter.impl.VendasPresenterImpl;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerItemVendaAdapter;
 
-public class VendasActivity extends AppCompatActivity
-        implements VendasClienteDialog.OnClienteSelectListener,
+public class VendasActivity extends AppCompatActivity implements
+        VendasClienteDialog.OnClienteSelectListener,
         VendasProdutosDialog.OnProdutoSelectListener,
-        VendasAlterarQuantidadeDialog.OnSetQuantidadeListener, DataStatus<Cliente> {
+        VendasAlterarQuantidadeDialog.OnSetQuantidadeListener,
+        VendasFacilView.ViewVendas {
 
     private Toolbar toolbar;
     private Button buttonCliente, buttonTotal;
     private RecyclerView recyclerItens;
     private RecyclerItemVendaAdapter adapterItens;
-    private Venda venda;
-    private ProdutoDao produtoDao;
-    private ClienteDao clienteDao;
+    private VendasPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venda);
-        venda = new Venda();
-        produtoDao = new ProdutoDaoImpl(null);
-        clienteDao = new ClienteDaoImpl(this);
+
+        mPresenter = new VendasPresenterImpl(this, this);
 
         setUpToolbar();
         setUpButtonClienteETotal();
@@ -66,20 +57,11 @@ public class VendasActivity extends AppCompatActivity
         buttonTotal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(venda.getItens().size() == 0) {
-                    Toast.makeText(VendasActivity.this,
-                            "Insira itens na venda para continuar",
-                            Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent it = new Intent(VendasActivity.this, VendasPagamentoActivity.class);
-                    it.putExtra(Venda.KEY, venda);
-                    startActivity(it);
-                }
+                mPresenter.checkoutVenda();
             }
         });
 
         buttonCliente = findViewById(R.id.toolbar_venda_button_cliente);
-
         buttonCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +75,7 @@ public class VendasActivity extends AppCompatActivity
         recyclerItens = findViewById(R.id.activity_venda_recycler_itens);
         recyclerItens.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterItens = new RecyclerItemVendaAdapter(this.venda.getItens());
+        adapterItens = new RecyclerItemVendaAdapter(mPresenter.getItensVenda());
         recyclerItens.setAdapter(adapterItens);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -104,9 +86,7 @@ public class VendasActivity extends AppCompatActivity
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                ItemVenda itemVenda = adapterItens.getItem(viewHolder.getAdapterPosition());
-                venda.remover(itemVenda);
-                totalizarItens();
+                mPresenter.removerItemVenda(adapterItens.getItem(viewHolder.getAdapterPosition()));
             }
         }).attachToRecyclerView(recyclerItens);
     }
@@ -117,69 +97,60 @@ public class VendasActivity extends AppCompatActivity
     }
 
     public void scanBarCode(View view) {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.EAN_13);
-        integrator.setPrompt("Novo produto");
-        integrator.setCameraId(0);
-        integrator.initiateScan();
+        mPresenter.initScanBarCode();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null){
-            if(result.getContents() != null){
-                Produto p = produtoDao.getByBarCode(result.getContents());
-                if(p != null)
-                    incluirProduto(p);
-                else
-                    Toast.makeText(this, "Produto não localizado!", Toast.LENGTH_SHORT).show();
-            }
-        }
-
+        mPresenter.onScanProdutoResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onClienteSelected(Cliente cliente) {
-        if(cliente != null){
-            this.venda.setCliente(cliente);
-            buttonCliente.setText(cliente.getNome());
-        }
+        mPresenter.setCliente(cliente);
     }
 
     @Override
     public void onProdutoSelected(Produto produto) {
-        incluirProduto(produto);
-    }
-
-    private void incluirProduto(Produto produto){
-        this.venda.incluir(produto);
-        totalizarItens();
-    }
-
-    private void totalizarItens(){
-        adapterItens.notifyDataSetChanged();
-        if(this.venda.getItens().size() == 0)
-            buttonTotal.setText(R.string.activity_venda_sem_itens);
-        else if(this.venda.getItens().size() == 1)
-            buttonTotal.setText(this.venda.getItens().size() + " item = R$ " + this.venda.getTotalText());
-        else
-            buttonTotal.setText(this.venda.getItens().size() + " itens = R$ " + this.venda.getTotalText());
+        mPresenter.incluirProduto(produto);
     }
 
     @Override
     public void onSetQuantidade(ItemVenda itemVenda, Double newQuantidade) {
-        if(itemVenda != null){
-            itemVenda.setQtd(newQuantidade);
-        }
-        this.totalizarItens();
+       mPresenter.setQuantidade(itemVenda, newQuantidade);
     }
 
     @Override
-    public void DataIsLoaded(List<Cliente> dados) {
-        if(venda.getCliente() == null) {
-            onClienteSelected(clienteDao.getClientePadrao());
-        }
+    public void showText(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void notifyAdapterItensDataSetChanged() {
+        adapterItens.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setButtonTotalText(String newText) {
+        buttonTotal.setText(newText);
+    }
+
+    @Override
+    public void setButtonTotalText(int resid) {
+        buttonTotal.setText(resid);
+    }
+
+    @Override
+    public void setButtonClienteText(String newText) {
+        buttonCliente.setText(newText);
+    }
+
+    @Override
+    public void openVendasPagamentoActivity(Venda venda) {
+        Intent it = new Intent(this, VendasPagamentoActivity.class);
+        it.putExtra(Venda.KEY, venda);
+        startActivity(it);
+    }
+
 }

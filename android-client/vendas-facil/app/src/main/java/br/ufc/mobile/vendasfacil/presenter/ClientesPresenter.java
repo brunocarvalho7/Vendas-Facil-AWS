@@ -1,10 +1,10 @@
 package br.ufc.mobile.vendasfacil.presenter;
 
-import java.util.List;
-
 import br.ufc.mobile.vendasfacil.model.Cliente;
 
-public interface ClientesPresenter {
+public interface ClientesPresenter extends GenericPresenter<Cliente> {
 
-    List<Cliente> getClientes();
+    void loadAdapterData();
+    void delete(Cliente cliente);
+
 }

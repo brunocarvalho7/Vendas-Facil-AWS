@@ -19,6 +19,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import br.ufc.mobile.vendasfacil.interfaces.AmazonS3ClientService;
+import br.ufc.mobile.vendasfacil.model.Produto;
 
 @Component
 public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
@@ -37,22 +38,27 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
 
 	@Override
 	@Async
-	public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
-		String fileName = multipartFile.getOriginalFilename();
-
+	public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess, Produto produto) {
+		String fileName = produto.getId() + ".jpg";
+			
         try {
             //creating the file in the server (temporarily)
             File file = new File(fileName);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(multipartFile.getBytes());
             fos.close();
-
-            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, fileName, file);
+            
+            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, "produtos/" + fileName, file);
 
             if (enablePublicReadAccess) {
                 putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
             }
             this.amazonS3.putObject(putObjectRequest);
+            
+            System.out.println("Fazendo upload do arquivo " + fileName);
+            System.out.println("https://vendas-facil.s3.amazonaws.com/produtos/" + fileName);
+            System.out.println("https://vendas-facil.s3.amazonaws.com/thumbs-produtos/" + fileName);
+            
             //removing the file created in the server
             file.delete();
         } catch (IOException | AmazonServiceException ex) {

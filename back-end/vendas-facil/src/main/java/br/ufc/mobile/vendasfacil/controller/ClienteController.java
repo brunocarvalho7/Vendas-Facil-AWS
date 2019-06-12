@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
 import br.ufc.mobile.vendasfacil.model.Cliente;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.ClienteService;
 
 @RestController
@@ -31,7 +33,8 @@ public class ClienteController implements ISimpleController<Cliente>{
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Cliente> save(@Valid @RequestBody Cliente cliente){
+	public ResponseEntity<Cliente> save(@Valid @RequestBody Cliente cliente,
+			@AuthenticationPrincipal Usuario usuario){
 		Cliente clienteSaved = clienteService.save(cliente);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -51,8 +54,8 @@ public class ClienteController implements ISimpleController<Cliente>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Cliente>> findAll() {
-		return ResponseEntity.ok(clienteService.findAll());
+	public ResponseEntity<Collection<Cliente>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(clienteService.findAll(usuario));
 	}
 
 	@Override

@@ -1,45 +1,84 @@
 package br.ufc.mobile.vendasfacil.presenter.impl;
 
+import br.ufc.mobile.vendasfacil.config.RetrofitConfigAuthorization;
 import br.ufc.mobile.vendasfacil.dao.FornecedorDao;
 import br.ufc.mobile.vendasfacil.dao.impl.FornecedorDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.presenter.FornecedoresDetailsPresenter;
-import br.ufc.mobile.vendasfacil.ui.View;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
+import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPresenter {
 
-    View.ViewDetails<Fornecedor> mView;
-    FornecedorDao fornecedorDao;
+    private static String TAG = "fornecedores";
 
-    public FornecedoresDetailsPresenterImpl(View.ViewDetails mView){
+    private VendasFacilView.ViewDetails<Fornecedor> mView;
+    private RetrofitConfigAuthorization retrofitConfigAuthorization;
+
+    public FornecedoresDetailsPresenterImpl(VendasFacilView.ViewDetails mView){
         this.mView = mView;
-        fornecedorDao = new FornecedorDaoImpl(null);
+        this.retrofitConfigAuthorization = APIUtils.getInstance().getRetrofitConfigAuthorization();
     }
-
 
     @Override
     public void onButtonConfirmClicked() {
-        if(this.salvar()) {
-            mView.showText("Fornecedor salvo com sucesso!");
-            mView.finishActivity();
-        }
+        this.salvar();
     }
 
     @Override
-    public boolean salvar() {
+    public void salvar() {
         Fornecedor fornecedor = mView.getData();
 
         if(fornecedor.isValid()){
-            if(fornecedor.getId() != null)
-                return fornecedorDao.update(fornecedor);
-            else
-                fornecedorDao.save(fornecedor);
+            if(fornecedor.getId() != null){
+                Call<Fornecedor> callUpdate =
+                        this.retrofitConfigAuthorization.getFornecedorService().update(fornecedor.getId(), fornecedor);
 
-            return true;
+                callUpdate.enqueue(new Callback<Fornecedor>() {
+                    @Override
+                    public void onResponse(Call<Fornecedor> call, Response<Fornecedor> response) {
+                        if(response.isSuccessful()){
+                            mView.showText("Fornecedor atualizado com sucesso!");
+                            mView.finishActivity();
+                        }else{
+                            APIUtils.getInstance().onRequestError(response, mView);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Fornecedor> call, Throwable t) {
+                        APIUtils.getInstance().onRequestFailure(TAG,
+                                APIUtils.MSG_ERRO_ATUALIZAR, t, mView);
+                    }
+                });
+            }else{
+                Call<Fornecedor> callSave =
+                        this.retrofitConfigAuthorization.getFornecedorService().save(fornecedor);
+
+                callSave.enqueue(new Callback<Fornecedor>() {
+                    @Override
+                    public void onResponse(Call<Fornecedor> call, Response<Fornecedor> response) {
+                        if(response.isSuccessful()){
+                            mView.showText("Fornecedor salvo com sucesso!");
+                            mView.finishActivity();
+                        }else{
+                            APIUtils.getInstance().onRequestError(response, mView);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Fornecedor> call, Throwable t) {
+                        APIUtils.getInstance().onRequestFailure(TAG,
+                                APIUtils.MSG_ERRO_SALVAR, t, mView);
+                    }
+                });
+            }
         }else{
-            mView.showText("Informe as informações do fornecedor");
-
-            return false;
+            mView.showText("Informe as informações do produto");
         }
     }
+
 }

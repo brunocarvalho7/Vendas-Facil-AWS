@@ -1,12 +1,15 @@
-package br.ufc.mobile.vendasfacil.controller;
+﻿package br.ufc.mobile.vendasfacil.controller;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.exception.VendasFacilException;
+import br.ufc.mobile.vendasfacil.interfaces.AmazonS3ClientService;
 import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
 import br.ufc.mobile.vendasfacil.model.Produto;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
 
 @RestController
@@ -28,11 +35,15 @@ import br.ufc.mobile.vendasfacil.service.ProdutoService;
 public class ProdutoController implements ISimpleController<Produto>{
 
 	@Autowired
-	ProdutoService produtoService;
+	private ProdutoService produtoService;
+	
+    @Autowired
+    private AmazonS3ClientService amazonS3ClientService;
 	
 	@Override
 	@PostMapping("")
-	public ResponseEntity<Produto> save(@Valid @RequestBody Produto produto){
+	public ResponseEntity<Produto> save(@Valid @RequestBody Produto produto,
+			@AuthenticationPrincipal Usuario usuario){
 		Produto produtoSaved = produtoService.save(produto);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -52,8 +63,8 @@ public class ProdutoController implements ISimpleController<Produto>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Produto>> findAll() {
-		return ResponseEntity.ok(produtoService.findAll());
+	public ResponseEntity<Collection<Produto>> findAll(@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(produtoService.findAll(usuario));
 	}
 
 	@Override
@@ -67,7 +78,7 @@ public class ProdutoController implements ISimpleController<Produto>{
 
 	
 	@GetMapping("/barcode/{codBarras}")
-	public ResponseEntity<Produto> findById(@PathVariable String codBarras) {
+	public ResponseEntity<Produto> findByCodBarras(@PathVariable String codBarras) {
 		if(codBarras == null)
 			throw new VendasFacilException("Código de barras inválido");
 		
@@ -86,4 +97,19 @@ public class ProdutoController implements ISimpleController<Produto>{
 		return ResponseEntity.ok(produtoService.delete(produto));
 	}
 	
+	@PostMapping("/{produto}/photo")
+    public Map<String, String> uploadPhoto(@PathVariable Produto produto,  @RequestPart(value = "file") MultipartFile file){
+		if(produto == null)
+			throw new NotFoundException("O produto que você está tentando salvar a foto não foi localizado!");
+		
+		if(file == null)
+			throw new VendasFacilException("Ops, há um erro com essa foto do produto!");
+		
+        this.amazonS3ClientService.uploadFileToS3Bucket(file, true, produto);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "file [" + file.getOriginalFilename() + "] uploading request submitted successfully.");
+
+        return response;
+    }
 }

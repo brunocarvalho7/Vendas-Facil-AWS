@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="75dp"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <ImageView
+        android:id="@+id/imgProduto"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDescricao"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Arroz Rio Longá"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@id/imgProduto"
+        android:layout_toEndOf="@id/imgProduto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/txtDescricao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="bottom"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="Arroz Rio Longá"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txtValor"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="bottom"
-            android:paddingRight="16dp"
-            android:text="R$ 3,90"
-            android:textAlignment="textEnd"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/txtValor"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="R$ 3,90"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/txtDescricao"
+        android:layout_toEndOf="@id/imgProduto"/>
 
     <TextView
         android:id="@+id/txtQtd"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="Em estoque: 4" />
-</LinearLayout>
+        android:text="Em estoque: 4"
+        android:layout_below="@id/txtValor"
+        android:layout_toEndOf="@id/imgProduto"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="43dp" />
+</RelativeLayout>

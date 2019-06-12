@@ -31,6 +31,13 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/activity_produtos_details_image"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:onClick="dispatchTakePictureIntent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_search" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -92,21 +99,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/textCategoria"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/produtos_details_categoria"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
                 <EditText
                     android:id="@+id/txtProdutoRsCompra"
                     android:layout_width="match_parent"
@@ -131,6 +123,24 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/txtProdutoEstoque"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/produtos_details_estoque"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
 
         </LinearLayout>
     </ScrollView>

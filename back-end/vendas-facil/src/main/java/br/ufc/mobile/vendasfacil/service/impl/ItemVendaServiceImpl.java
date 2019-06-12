@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.mobile.vendasfacil.model.ItemVenda;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.repository.ItemVendaRepository;
 import br.ufc.mobile.vendasfacil.service.ItemVendaService;
 
@@ -41,7 +42,7 @@ public class ItemVendaServiceImpl implements ItemVendaService{
 	}
 
 	@Override
-	public List<ItemVenda> findAll() {
+	public List<ItemVenda> findAll(Usuario usuario) {
 	    return itemVendaRepo.findAll();
 	}
 

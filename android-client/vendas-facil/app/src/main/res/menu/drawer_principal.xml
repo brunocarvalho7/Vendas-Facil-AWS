@@ -21,6 +21,26 @@
                     android:id="@+id/menu_drawer_produto"
                     android:icon="@drawable/ic_menu_produto"
                     android:title="Produtos" />
+
+            </group>
+        </menu>
+    </item>
+    <item
+        android:title="Relatórios">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/menu_drawer_venda"
+                    android:icon="@drawable/ic_fab_venda"
+                    android:title="Lista de Vendas" />
+
+                <item
+                    android:id="@+id/menu_drawer_venda_grafico"
+                    android:icon="@drawable/ic_vendas_chart"
+                    android:title="Comparativo de vendas" />
+
+
             </group>
         </menu>
     </item>

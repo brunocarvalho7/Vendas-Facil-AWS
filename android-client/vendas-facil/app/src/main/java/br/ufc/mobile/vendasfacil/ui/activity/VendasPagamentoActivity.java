@@ -10,31 +10,39 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.ufc.mobile.vendasfacil.R;
-import br.ufc.mobile.vendasfacil.dao.VendaDao;
-import br.ufc.mobile.vendasfacil.dao.impl.VendaDaoImpl;
+import br.ufc.mobile.vendasfacil.config.RetrofitConfigAuthorization;
 import br.ufc.mobile.vendasfacil.model.Venda;
 import br.ufc.mobile.vendasfacil.model.enums.FormaPagamento;
+import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
+import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class VendasPagamentoActivity extends AppCompatActivity {
+public class VendasPagamentoActivity extends AppCompatActivity implements VendasFacilView.IShowText {
 
-    private VendaDao vendaDao;
+    private static final String TAG = "Vendas";
+
     private EditText txtValor;
     private TextView txtTrocoLbl, txtTroco;
     private LinearLayout llFormaPagamento;
     private Venda venda;
+    private RetrofitConfigAuthorization retrofitConfigAuthorization;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venda_pagamento);
 
+        this.retrofitConfigAuthorization = APIUtils.getInstance().getRetrofitConfigAuthorization();
+
         if(getIntent().getExtras() != null && getIntent().getExtras().getSerializable(Venda.KEY) != null){
             this.venda = (Venda) getIntent().getExtras().getSerializable(Venda.KEY);
         }
-
-        vendaDao = new VendaDaoImpl(null);
 
         setUpEdtValor();
     }
@@ -71,7 +79,28 @@ public class VendasPagamentoActivity extends AppCompatActivity {
 
     private void finalizarVenda(FormaPagamento formaPagamento){
         venda.setFormaPagamento(formaPagamento);
-        vendaDao.save(venda);
+
+        Call<Venda> callNovaVenda = this.retrofitConfigAuthorization.getVendaService().save(venda);
+
+        callNovaVenda.enqueue(new Callback<Venda>() {
+            @Override
+            public void onResponse(Call<Venda> call, Response<Venda> response) {
+                if(response.isSuccessful()){
+                    openVendasPagamentoConfirmacaoActivity();
+                }else{
+                    APIUtils.getInstance().onRequestError(response, VendasPagamentoActivity.this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Venda> call, Throwable t) {
+                APIUtils.getInstance().onRequestFailure(TAG,
+                        "Erro ao salvar a venda", t, VendasPagamentoActivity.this);
+            }
+        });
+    }
+
+    private void openVendasPagamentoConfirmacaoActivity(){
         Intent it = new Intent(this, VendasPagamentoConfirmacaoActivity.class);
         it.putExtra("TROCO", txtTroco.getText().toString());
         it.putExtra("VALOR", "R$: " + venda.getTotalText());
@@ -84,5 +113,10 @@ public class VendasPagamentoActivity extends AppCompatActivity {
 
     public void finalizarVendaCartao(View view){
         this.finalizarVenda(FormaPagamento.CARTAO);
+    }
+
+    @Override
+    public void showText(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

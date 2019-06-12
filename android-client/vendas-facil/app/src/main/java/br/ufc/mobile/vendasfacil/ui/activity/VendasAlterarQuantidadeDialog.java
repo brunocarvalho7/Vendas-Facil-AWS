@@ -23,7 +23,7 @@ public class VendasAlterarQuantidadeDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        view      = getActivity().getLayoutInflater().inflate(R.layout.activity_venda_alterar_quantidade, null);
+        view  = getActivity().getLayoutInflater().inflate(R.layout.activity_venda_alterar_quantidade, null);
 
         if(getArguments().getSerializable(ItemVenda.KEY) != null)
             itemVenda = (ItemVenda) getArguments().getSerializable(ItemVenda.KEY);

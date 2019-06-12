@@ -62,11 +62,11 @@ public class CategoriaRepository {
     }
 
     private void mock() {
-        save(new Categoria(1,"Frios"));
-        save(new Categoria(2,"Carnes"));
-        save(new Categoria(3,"Biscoito"));
-        save(new Categoria(4,"Ovos"));
-        save(new Categoria(5,"Arroz"));
-        save(new Categoria(6,"Feijão"));
+        save(new Categoria("1","Frios"));
+        save(new Categoria("2","Carnes"));
+        save(new Categoria("3","Biscoito"));
+        save(new Categoria("4","Ovos"));
+        save(new Categoria("5","Arroz"));
+        save(new Categoria("6","Feijão"));
     }
 }

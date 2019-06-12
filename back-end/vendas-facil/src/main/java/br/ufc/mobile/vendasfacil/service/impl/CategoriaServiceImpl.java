@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.mobile.vendasfacil.model.Categoria;
+import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.repository.CategoriaRepository;
 import br.ufc.mobile.vendasfacil.service.CategoriaService;
 
@@ -41,7 +42,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public List<Categoria> findAll() {
+	public List<Categoria> findAll(Usuario usuario) {
 		return categoriaRepo.findAll();
 	}
 

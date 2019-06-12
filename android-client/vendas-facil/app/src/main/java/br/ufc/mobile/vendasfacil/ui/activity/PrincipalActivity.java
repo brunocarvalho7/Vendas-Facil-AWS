@@ -36,7 +36,7 @@ public class PrincipalActivity extends AppCompatActivity
     private TextView txtValorDia, txtQtdDia, txtMes, txtValorMes, txtQtdMes;
     private VendasDiarias vendasDiarias;
     private VendasMensal vendasMensal;
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class PrincipalActivity extends AppCompatActivity
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
 
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
         setUpToolbar();
         setUpDrawerMenu();
@@ -59,7 +59,7 @@ public class PrincipalActivity extends AppCompatActivity
         setUpUser();
         setUpLogout();
 
-        doReports();
+      //  doReports();
     }
 
     @Override
@@ -89,6 +89,10 @@ public class PrincipalActivity extends AppCompatActivity
             openFornecedorActivity();
         }else if (id == R.id.menu_drawer_produto) {
             openProdutosActivity();
+        }else if(id == R.id.menu_drawer_venda){
+            openListaVendasActivity();
+        }else if(id == R.id.menu_drawer_venda_grafico){
+            openVendasGraficoActivity();
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -155,12 +159,12 @@ public class PrincipalActivity extends AppCompatActivity
     }
 
     private void setUpUser() {
-        FirebaseUser currentUser = VendasFacilAuthenticationFirebase.getInstance().getUserAuthenticated();
+        String currentUser = VendasFacilAuthenticationFirebase.getInstance().getUsername();
 
         if(currentUser != null){
             TextView username =  navigationPrincipal.getHeaderView(0)
                     .findViewById(R.id.menu_lateral_username);
-            username.setText(currentUser.getDisplayName());
+            username.setText(currentUser);
         }
     }
 
@@ -185,6 +189,14 @@ public class PrincipalActivity extends AppCompatActivity
 
     public void openVendasActivity(View view){
         startActivity(new Intent(this, VendasActivity.class));
+    }
+
+    private void openListaVendasActivity() {
+        startActivity(new Intent(this, ListaVendasActivity.class));
+    }
+
+    private void openVendasGraficoActivity() {
+        startActivity(new Intent(this, VendasGraficosActivity.class));
     }
 
     public void doReports(){
