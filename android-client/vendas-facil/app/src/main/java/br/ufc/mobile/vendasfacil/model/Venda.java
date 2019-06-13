@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,6 +22,7 @@ public class Venda implements Serializable {
     private ArrayList<ItemVenda> itens;
     private double total;
     private FormaPagamento formaPagamento;
+    private Filial filial;
 
     public Venda() {
         this.data = new Date(System.currentTimeMillis());
@@ -103,6 +103,14 @@ public class Venda implements Serializable {
     
     public FormaPagamento getFormaPagamento(){
         return formaPagamento;
+    }
+
+    public Filial getFilial() {
+        return filial;
+    }
+
+    public void setFilial(Filial filial) {
+        this.filial = filial;
     }
 
     @JsonIgnore

@@ -43,7 +43,7 @@ public class ItemVendaServiceImpl implements ItemVendaService{
 
 	@Override
 	public List<ItemVenda> findAll(Usuario usuario) {
-	    return itemVendaRepo.findAll();
+	    return itemVendaRepo.findAllByUsuario(usuario);
 	}
 
 	@Override

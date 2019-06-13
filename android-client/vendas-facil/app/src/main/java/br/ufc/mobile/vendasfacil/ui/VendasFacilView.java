@@ -2,6 +2,8 @@ package br.ufc.mobile.vendasfacil.ui;
 
 import android.support.annotation.StringRes;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
@@ -34,6 +36,14 @@ public class VendasFacilView {
         void setButtonTotalText(@StringRes int resid);
         void setButtonClienteText(String newText);
         void openVendasPagamentoActivity(Venda venda);
+    }
+
+    public interface ViewLocalizarFiliais extends IShowText{
+        boolean verifyPermission(String permission);
+        void showConfirmFilialDialog(final String markerTitle, final LatLng markerLatLng);
+        void setMyLocationEnabled();
+        void openActivityPrincipal();
+        void callOnMapReady();
     }
 
 }

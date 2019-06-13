@@ -37,13 +37,13 @@ import br.ufc.mobile.vendasfacil.repository.UsuarioRepository;
 public class AuthControllerImpl {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    JwtTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @PostMapping("/signin")
     public ResponseEntity<Object> signin(@RequestBody AuthenticationRequest data) {

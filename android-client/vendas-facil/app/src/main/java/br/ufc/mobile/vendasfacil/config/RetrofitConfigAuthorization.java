@@ -3,6 +3,7 @@ package br.ufc.mobile.vendasfacil.config;
 import java.io.IOException;
 
 import br.ufc.mobile.vendasfacil.service.ClienteService;
+import br.ufc.mobile.vendasfacil.service.FilialService;
 import br.ufc.mobile.vendasfacil.service.FornecedorService;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
 import br.ufc.mobile.vendasfacil.service.VendaService;
@@ -55,4 +56,7 @@ public class RetrofitConfigAuthorization {
         return this.retrofit.create(VendaService.class);
     }
 
+    public FilialService getFilialService(){
+        return this.retrofit.create(FilialService.class);
+    }
 }

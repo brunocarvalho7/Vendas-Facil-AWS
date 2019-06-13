@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void abrirActivityPrincipal(){
-        Intent it = new Intent(this, PrincipalActivity.class);
+        Intent it = new Intent(this, LocalizarFiliais.class);
         startActivity(it);
     }
 

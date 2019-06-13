@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
-import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.interfaces.ISimpleControllerFindAllByFilialAndUsuario;
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.model.ReportVendaDTO;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.model.Venda;
@@ -27,7 +29,7 @@ import br.ufc.mobile.vendasfacil.service.VendaService;
 
 @RestController
 @RequestMapping("/api/vendas")
-public class VendaController implements ISimpleController<Venda>{
+public class VendaController implements ISimpleControllerFindAllByFilialAndUsuario<Venda>{
 
 	@Autowired
 	VendaService vendaService;
@@ -35,8 +37,13 @@ public class VendaController implements ISimpleController<Venda>{
 	@Override
 	@PostMapping("")
 	public ResponseEntity<Venda> save(@Valid @RequestBody Venda venda, 
-			@AuthenticationPrincipal Usuario usuario){
+			@AuthenticationPrincipal Usuario usuario, @RequestParam("filial") Filial filial){
+		
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
 		venda.setVendedor(usuario);
+		venda.setFilial(filial);
 		Venda vendaSaved = vendaService.save(venda);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -56,8 +63,9 @@ public class VendaController implements ISimpleController<Venda>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Venda>> findAll(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(vendaService.findAll(usuario));
+	public ResponseEntity<Collection<Venda>> findAll(@RequestParam("filial") Filial filial,
+			@AuthenticationPrincipal Usuario usuario) {
+		return ResponseEntity.ok(vendaService.findAll(filial, usuario));
 	}
 
 	@Override

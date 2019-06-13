@@ -2,6 +2,8 @@ package br.ufc.mobile.vendasfacil.utils;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import br.ufc.mobile.vendasfacil.model.Filial;
+
 public class VendasFacilAuthenticationFirebase {
 
     private static VendasFacilAuthenticationFirebase instance;
@@ -9,6 +11,7 @@ public class VendasFacilAuthenticationFirebase {
     private String token;
     private FirebaseUser user;
     private String username;
+    private Filial filial;
 
     private VendasFacilAuthenticationFirebase(){
 
@@ -43,5 +46,13 @@ public class VendasFacilAuthenticationFirebase {
 
     public String getUsername(){
         return username;
+    }
+
+    public void setFilial(Filial filial){
+        this.filial = filial;
+    }
+
+    public Filial getFilial(){
+        return filial;
     }
 }

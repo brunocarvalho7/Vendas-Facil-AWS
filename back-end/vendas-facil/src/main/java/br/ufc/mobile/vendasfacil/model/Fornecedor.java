@@ -2,6 +2,8 @@ package br.ufc.mobile.vendasfacil.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -14,6 +16,10 @@ public class Fornecedor {
     private String nome;
     private String telefone;
     private String vendedor;
+    
+    @ManyToOne
+    @JoinColumn(name="filial_id")
+    private Filial filial;
     
     public Fornecedor() {
     }
@@ -57,6 +63,14 @@ public class Fornecedor {
         this.vendedor = vendedor;
     }
 
+    public Filial getFilial() {
+		return filial;
+	}
+
+	public void setFilial(Filial filial) {
+		this.filial = filial;
+	}
+    
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

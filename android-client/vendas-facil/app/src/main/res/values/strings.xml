@@ -32,4 +32,10 @@
     <string name="firebase_status_fmt">Firebase User: %s</string>
 
     <string name="dash">-</string>
+    <string name="title_activity_localizar_filiais">Map</string>
+
+    <!--    Permissions    -->
+    <string name="permission_rationale_location">O serviço de localização é obrigatorio</string>
+    <string name="location_permission_denied">Ops, precisamos que você dê autorização ao aplicativo para utilizar o serviço de localização.</string>
+    <string name="permission_required_toast">A permissão de localização é requerida</string>
 </resources>

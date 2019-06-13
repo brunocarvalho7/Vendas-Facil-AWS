@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
-import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.interfaces.ISimpleControllerFindAll;
 import br.ufc.mobile.vendasfacil.model.Categoria;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.CategoriaService;
 
 @RestController
 @RequestMapping("/api/categorias")
-public class CategoriaController implements ISimpleController<Categoria>{
+public class CategoriaController implements ISimpleControllerFindAll<Categoria>{
 
 	@Autowired
-	CategoriaService categoriaService;
+	private CategoriaService categoriaService;
 	
 	@Override
 	@PostMapping("")
@@ -54,8 +54,8 @@ public class CategoriaController implements ISimpleController<Categoria>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Categoria>> findAll(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(categoriaService.findAll(usuario));
+	public ResponseEntity<Collection<Categoria>> findAll() {
+		return ResponseEntity.ok(categoriaService.findAll());
 	}
 
 	@Override

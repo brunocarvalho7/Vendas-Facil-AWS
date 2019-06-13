@@ -7,6 +7,7 @@ import br.ufc.mobile.vendasfacil.model.Venda;
 import br.ufc.mobile.vendasfacil.presenter.ListaVendasPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +26,8 @@ public class ListaVendasPresenterImpl implements ListaVendasPresenter {
 
     @Override
     public void loadAdapterData() {
-        Call<List<Venda>> callfindAll = this.retrofitConfigAuthorization.getVendaService().findAll();
+        Call<List<Venda>> callfindAll = this.retrofitConfigAuthorization.getVendaService()
+                .findAll(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId());
 
         callfindAll.enqueue(new Callback<List<Venda>>() {
             @Override

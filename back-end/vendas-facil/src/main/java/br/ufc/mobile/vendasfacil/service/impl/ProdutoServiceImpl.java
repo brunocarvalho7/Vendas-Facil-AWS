@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.model.Produto;
-import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.repository.ProdutoRepository;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
 
@@ -42,8 +42,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public List<Produto> findAll(Usuario usuario) {
-	    return produtoRepo.findAll();
+	public List<Produto> findAll(Filial filial) {
+	    return produtoRepo.findAllByFilial(filial);
 	}
 
 	@Override

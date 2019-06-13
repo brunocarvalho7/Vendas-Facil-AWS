@@ -1,6 +1,6 @@
 package br.ufc.mobile.vendasfacil.model;
 
-import com.google.firebase.database.Exclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ public class Cliente implements Serializable {
     private String nome;
     private String endereco;
     private String telefone;
+    private Filial filial;
 
     public Cliente() {
     }
@@ -55,7 +56,15 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    @Exclude
+    public Filial getFilial() {
+        return filial;
+    }
+
+    public void setFilial(Filial filial) {
+        this.filial = filial;
+    }
+
+    @JsonIgnore
     public boolean isValid(){
         return nome.trim().length() > 0;
     }
