@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -33,6 +35,10 @@ public class Produto {
     private Double rsVenda;
     
     private Double estoque;
+    
+    @ManyToOne
+    @JoinColumn(name="filial_id")
+    private Filial filial;
 
     public Produto(String id, String descricao, Unidade unidade, String codBarras, Categoria categoria,
                    Double rsCompra, Double rsVenda, Double estoque) {
@@ -111,6 +117,14 @@ public class Produto {
     public Double getEstoque() {
         return estoque;
     }
+    
+    public Filial getFilial() {
+		return filial;
+	}
+
+	public void setFilial(Filial filial) {
+		this.filial = filial;
+	}
 
     public void setEstoque(Double estoque) {
         this.estoque = estoque;

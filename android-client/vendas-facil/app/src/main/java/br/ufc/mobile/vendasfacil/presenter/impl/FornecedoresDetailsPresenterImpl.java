@@ -7,6 +7,7 @@ import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.presenter.FornecedoresDetailsPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +57,8 @@ public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPres
                 });
             }else{
                 Call<Fornecedor> callSave =
-                        this.retrofitConfigAuthorization.getFornecedorService().save(fornecedor);
+                        this.retrofitConfigAuthorization.getFornecedorService()
+                                .save(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId(), fornecedor);
 
                 callSave.enqueue(new Callback<Fornecedor>() {
                     @Override

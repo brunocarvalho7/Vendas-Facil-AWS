@@ -2,6 +2,8 @@ package br.ufc.mobile.vendasfacil.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +18,10 @@ public class Cliente {
     private String nome;
     private String endereco;
     private String telefone;
+    
+    @ManyToOne
+    @JoinColumn(name="filial_id")
+    private Filial filial;
 
     public Cliente() {
     }
@@ -59,7 +65,15 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    @JsonIgnore
+    public Filial getFilial() {
+		return filial;
+	}
+
+	public void setFilial(Filial filial) {
+		this.filial = filial;
+	}
+
+	@JsonIgnore
     public boolean isValid(){
         return nome.trim().length() > 0;
     }

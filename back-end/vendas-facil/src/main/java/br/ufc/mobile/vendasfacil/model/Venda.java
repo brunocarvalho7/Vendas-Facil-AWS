@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -36,8 +38,14 @@ public class Venda {
     @NotNull
     private FormaPagamento formaPagamento;
     
+    @ManyToOne
+    @JoinColumn(name="vendedor_id")
     private Usuario vendedor;
-
+    
+    @ManyToOne
+    @JoinColumn(name="filial_id")
+    private Filial filial;
+    
     public Venda() {
         this.data = new Date(System.currentTimeMillis());
         this.itens = new ArrayList<>();
@@ -126,6 +134,14 @@ public class Venda {
     public Usuario getVendedor() {
     	return vendedor;
     }
+    
+    public Filial getFilial() {
+		return filial;
+	}
+
+	public void setFilial(Filial filial) {
+		this.filial = filial;
+	}
     
     private void calcularTotal(){
         this.total = 0;

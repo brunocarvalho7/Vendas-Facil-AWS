@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.mobile.vendasfacil.model.Cliente;
-import br.ufc.mobile.vendasfacil.model.Usuario;
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.repository.ClienteRepository;
 import br.ufc.mobile.vendasfacil.service.ClienteService;
 
@@ -16,7 +16,7 @@ import br.ufc.mobile.vendasfacil.service.ClienteService;
 public class ClienteServiceImpl implements ClienteService{
 
 	@Autowired
-	ClienteRepository clienteRepo;
+	private ClienteRepository clienteRepo;
 
 	@Override
 	public Cliente save(Cliente cliente) {
@@ -42,8 +42,8 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public List<Cliente> findAll(Usuario usuario) {
-		return clienteRepo.findAll();
+	public List<Cliente> findAll(Filial filial) {
+		return clienteRepo.findAllByFilial(filial);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class Produto implements Serializable {
     private Double rsCompra;
     private Double rsVenda;
     private Double estoque;
+    private Filial filial;
 
     public Produto(String id, String descricao, Unidade unidade, String codBarras, Categoria categoria,
                    Double rsCompra, Double rsVenda, Double estoque) {
@@ -101,6 +102,14 @@ public class Produto implements Serializable {
 
     public void setEstoque(Double estoque) {
         this.estoque = estoque;
+    }
+
+    public Filial getFilial() {
+        return filial;
+    }
+
+    public void setFilial(Filial filial) {
+        this.filial = filial;
     }
 
     @JsonIgnore

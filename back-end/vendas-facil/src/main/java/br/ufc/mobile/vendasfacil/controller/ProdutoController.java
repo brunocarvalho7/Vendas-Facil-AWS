@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +26,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
 import br.ufc.mobile.vendasfacil.exception.VendasFacilException;
 import br.ufc.mobile.vendasfacil.interfaces.AmazonS3ClientService;
-import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.interfaces.ISimpleControllerFindAllByFilial;
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
 
 @RestController
 @RequestMapping("/api/produtos")
-public class ProdutoController implements ISimpleController<Produto>{
+public class ProdutoController implements ISimpleControllerFindAllByFilial<Produto>{
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -43,7 +45,13 @@ public class ProdutoController implements ISimpleController<Produto>{
 	@Override
 	@PostMapping("")
 	public ResponseEntity<Produto> save(@Valid @RequestBody Produto produto,
-			@AuthenticationPrincipal Usuario usuario){
+			@AuthenticationPrincipal Usuario usuario, @RequestParam("filial") Filial filial){
+		
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
+		produto.setFilial(filial);
+		
 		Produto produtoSaved = produtoService.save(produto);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -63,8 +71,8 @@ public class ProdutoController implements ISimpleController<Produto>{
 
 	@Override
 	@GetMapping("")
-	public ResponseEntity<Collection<Produto>> findAll(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(produtoService.findAll(usuario));
+	public ResponseEntity<Collection<Produto>> findAll(@RequestParam("filial") Filial filial) {
+		return ResponseEntity.ok(produtoService.findAll(filial));
 	}
 
 	@Override

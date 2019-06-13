@@ -5,6 +5,7 @@ import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesDetailsPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +55,8 @@ public class ClientesDetailsPresenterImpl implements ClientesDetailsPresenter {
                 });
             }else{
                 Call<Cliente> callSaveCliente =
-                        this.retrofitConfigAuthorization.getClienteService().save(cliente);
+                        this.retrofitConfigAuthorization.getClienteService()
+                                .save(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId(), cliente);
 
                 callSaveCliente.enqueue(new Callback<Cliente>() {
                     @Override

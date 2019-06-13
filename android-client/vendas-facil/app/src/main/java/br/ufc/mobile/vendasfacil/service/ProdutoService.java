@@ -3,6 +3,7 @@ package br.ufc.mobile.vendasfacil.service;
 import java.util.List;
 import java.util.Map;
 
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -15,17 +16,19 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ProdutoService {
 
     @POST("produtos")
-    Call<Produto> save(@Body Produto produto);
+    Call<Produto> save(@Query("filial") Integer filial, @Body Produto produto);
 
     @PUT("produtos/{produto}")
     Call<Produto> update(@Path("produto") String id, @Body Produto produto);
 
     @GET("produtos")
-    Call<List<Produto>> findAll();
+    Call<List<Produto>> findAll(@Query("filial") Integer filial);
+
     @GET("produtos/{produto}")
     Call<Produto> findById(@Path("produto") String id);
 

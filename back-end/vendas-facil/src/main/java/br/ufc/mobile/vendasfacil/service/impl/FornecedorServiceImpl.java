@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufc.mobile.vendasfacil.model.Filial;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
-import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.repository.FornecedorRepository;
 import br.ufc.mobile.vendasfacil.service.FornecedorService;
 
@@ -42,8 +42,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 	}
 
 	@Override
-	public List<Fornecedor> findAll(Usuario usuario) {
-		return fornecedorRepo.findAll();
+	public List<Fornecedor> findAll(Filial filial) {
+		return fornecedorRepo.findAllByFilial(filial);
 	}
 
 	@Override

@@ -15,7 +15,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.ufc.mobile.vendasfacil.config.RetrofitConfigAuthorization;
+import br.ufc.mobile.vendasfacil.model.ReportVendaDTO;
 import br.ufc.mobile.vendasfacil.model.Venda;
+import br.ufc.mobile.vendasfacil.utils.APIUtils;
+import retrofit2.Call;
 
 public class VendasDiarias extends AsyncTask<Void, Void, Reports> {
 
@@ -23,9 +27,11 @@ public class VendasDiarias extends AsyncTask<Void, Void, Reports> {
     private DatabaseReference mDatabase;
     private Context mContext;
     private Reports.VendaCalculoListener vendaCalculoListener;
+    private RetrofitConfigAuthorization retrofitConfigAuthorization;
 
     public VendasDiarias(Context mContext){
         this.mContext = mContext;
+        this.retrofitConfigAuthorization = APIUtils.getInstance().getRetrofitConfigAuthorization();
     }
 
     public void setVendaCalculoListener(Reports.VendaCalculoListener vendaCalculoListener){

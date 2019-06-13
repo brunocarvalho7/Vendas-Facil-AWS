@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ufc.mobile.vendasfacil.exception.NotFoundException;
-import br.ufc.mobile.vendasfacil.interfaces.ISimpleController;
+import br.ufc.mobile.vendasfacil.interfaces.ISimpleControllerFindAllByUsuario;
 import br.ufc.mobile.vendasfacil.model.ItemVenda;
 import br.ufc.mobile.vendasfacil.model.Usuario;
 import br.ufc.mobile.vendasfacil.service.ItemVendaService;
 
 @RestController
 @RequestMapping("/api/item-vendas")
-public class ItemVendaController implements ISimpleController<ItemVenda>{
+public class ItemVendaController implements ISimpleControllerFindAllByUsuario<ItemVenda>{
 
 	@Autowired
 	ItemVendaService itemVendaService;
