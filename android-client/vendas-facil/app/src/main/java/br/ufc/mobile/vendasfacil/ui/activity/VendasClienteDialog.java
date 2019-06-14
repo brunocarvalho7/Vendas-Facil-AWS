@@ -21,7 +21,7 @@ import br.ufc.mobile.vendasfacil.config.RetrofitConfigAuthorization;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +62,7 @@ public class VendasClienteDialog extends AppCompatDialogFragment implements Vend
 
     private void setUpListViewClientes() {
         Call<List<Cliente>> callFindAll = this.retrofitConfigAuthorization
-                .getClienteService().findAll(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId());
+                .getClienteService().findAll(VendasFacilAuthentication.getInstance().getFilial().getId());
 
         callFindAll.enqueue(new Callback<List<Cliente>>() {
             @Override

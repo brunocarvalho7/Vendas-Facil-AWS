@@ -72,6 +72,9 @@ public class ProdutoController implements ISimpleControllerFindAllByFilial<Produ
 	@Override
 	@GetMapping("")
 	public ResponseEntity<Collection<Produto>> findAll(@RequestParam("filial") Filial filial) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
 		return ResponseEntity.ok(produtoService.findAll(filial));
 	}
 

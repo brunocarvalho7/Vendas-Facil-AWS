@@ -1,5 +1,7 @@
 package br.ufc.mobile.vendasfacil.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,18 +81,33 @@ public class VendaServiceImpl implements VendaService{
 	}
 
 	@Override
-	public ReportVendaDTO reportByDia(Usuario usuario) {
-		return vendaRepo.reportByDia(ReportsUtils.getDataAtual(), usuario);
+	public ReportVendaDTO reportByDia(Usuario usuario, Filial filial) {
+		return reportByDia(ReportsUtils.getDataAtual(), usuario, filial);
+	}
+	
+	@Override
+	public ReportVendaDTO reportByDia(Date data, Usuario usuario, Filial filial) {
+		ReportVendaDTO report = vendaRepo.reportByDia(data, usuario, filial);
+		
+		if(report == null)
+			report = new ReportVendaDTO(data);
+		
+		return report;
 	}
 
 	@Override
-	public List<ReportVendaDTO> reportBySemana(Usuario usuario) {
-		return vendaRepo.reportBySemana(ReportsUtils.getSemanaAnterior(), usuario);
+	public List<ReportVendaDTO> reportBySemana(Usuario usuario, Filial filial) {
+		List<ReportVendaDTO> reports = new ArrayList<>();
+		
+		for(Date d: ReportsUtils.getSemanaAnterior())
+			reports.add(reportByDia(d, usuario, filial));
+		
+		return reports;
 	}
 
 	@Override
-	public List<ReportVendaDTO> reportByMes(Usuario usuario) {
-		return vendaRepo.reportByMes(ReportsUtils.getInicioMes(), usuario);
+	public ReportVendaDTO reportByMes(Usuario usuario, Filial filial) {
+		return vendaRepo.reportByMes(ReportsUtils.getInicioMes(), usuario, filial);
 	}
 
 }

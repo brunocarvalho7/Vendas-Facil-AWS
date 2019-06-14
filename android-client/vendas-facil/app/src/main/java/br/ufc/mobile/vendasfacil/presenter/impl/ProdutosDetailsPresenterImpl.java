@@ -15,7 +15,7 @@ import br.ufc.mobile.vendasfacil.presenter.ProdutosDetailsPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
 import br.ufc.mobile.vendasfacil.utils.Utils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -72,7 +72,7 @@ public class ProdutosDetailsPresenterImpl implements ProdutosDetailsPresenter {
             }else{
                 Call<Produto> callSave =
                         this.retrofitConfigAuthorization.getProdutoService()
-                                .save(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId(), produto);
+                                .save(VendasFacilAuthentication.getInstance().getFilial().getId(), produto);
 
                 callSave.enqueue(new Callback<Produto>() {
                     @Override

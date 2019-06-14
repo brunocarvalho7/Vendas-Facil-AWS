@@ -62,6 +62,9 @@ public class ClienteController implements ISimpleControllerFindAllByFilial<Clien
 	@Override
 	@GetMapping("")
 	public ResponseEntity<Collection<Cliente>> findAll(@RequestParam("filial") Filial filial) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
 		return ResponseEntity.ok(clienteService.findAll(filial));
 	}
 

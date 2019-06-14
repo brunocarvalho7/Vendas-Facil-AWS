@@ -7,7 +7,7 @@ import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +27,7 @@ public class ClientesPresenterImpl implements ClientesPresenter {
     @Override
     public void loadAdapterData() {
         Call<List<Cliente>> callfindAllClientes = this.retrofitConfigAuthorization
-                .getClienteService().findAll(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId());
+                .getClienteService().findAll(VendasFacilAuthentication.getInstance().getFilial().getId());
         callfindAllClientes.enqueue(new Callback<List<Cliente>>() {
             @Override
             public void onResponse(Call<List<Cliente>> call, Response<List<Cliente>> response) {
