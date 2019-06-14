@@ -18,7 +18,7 @@ import br.ufc.mobile.vendasfacil.model.Venda;
 import br.ufc.mobile.vendasfacil.model.enums.FormaPagamento;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,7 +82,7 @@ public class VendasPagamentoActivity extends AppCompatActivity implements Vendas
         venda.setFormaPagamento(formaPagamento);
 
         Call<Venda> callNovaVenda = this.retrofitConfigAuthorization.getVendaService()
-                .save(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId(), venda);
+                .save(VendasFacilAuthentication.getInstance().getFilial().getId(), venda);
 
         callNovaVenda.enqueue(new Callback<Venda>() {
             @Override

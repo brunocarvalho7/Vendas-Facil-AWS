@@ -10,7 +10,7 @@ import br.ufc.mobile.vendasfacil.model.UsuarioDTO;
 import br.ufc.mobile.vendasfacil.presenter.LoginPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,8 +38,8 @@ public class LoginPresenterImpl implements LoginPresenter {
                 public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                     if(response.isSuccessful()){
                         Map<String, String> auth = response.body();
-                        VendasFacilAuthenticationFirebase.getInstance().setUsername(auth.get("username"));
-                        VendasFacilAuthenticationFirebase.getInstance().setToken(auth.get("token"));
+                        VendasFacilAuthentication.getInstance().setUsername(auth.get("username"));
+                        VendasFacilAuthentication.getInstance().setToken(auth.get("token"));
 
                         mView.abrirActivityPrincipal();
                     }else {

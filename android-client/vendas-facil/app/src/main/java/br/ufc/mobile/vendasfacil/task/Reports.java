@@ -44,6 +44,22 @@ public class Reports {
         return "R$ "+String.format("%.2f", this.total);
     }
 
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     @Override
     public String toString(){
         return getLabel() + ": " + getQtdText() + " -> " + getTotalText();

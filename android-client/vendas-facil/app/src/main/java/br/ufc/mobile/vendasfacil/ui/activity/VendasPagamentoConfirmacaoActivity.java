@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import br.ufc.mobile.vendasfacil.R;
-import br.ufc.mobile.vendasfacil.repository.VendaRepository;
 
 public class VendasPagamentoConfirmacaoActivity extends AppCompatActivity {
 
@@ -30,8 +29,6 @@ public class VendasPagamentoConfirmacaoActivity extends AppCompatActivity {
                 txtTroco.setText( getIntent().getExtras().getString("TROCO") );
             }
         }
-
-        Log.i("Vendas", VendaRepository.getInstance().getAll().toString());
     }
 
     @Override

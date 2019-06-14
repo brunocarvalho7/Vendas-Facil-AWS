@@ -1,13 +1,11 @@
 package br.ufc.mobile.vendasfacil.presenter.impl;
 
 import br.ufc.mobile.vendasfacil.config.RetrofitConfigAuthorization;
-import br.ufc.mobile.vendasfacil.dao.FornecedorDao;
-import br.ufc.mobile.vendasfacil.dao.impl.FornecedorDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.presenter.FornecedoresDetailsPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,7 +56,7 @@ public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPres
             }else{
                 Call<Fornecedor> callSave =
                         this.retrofitConfigAuthorization.getFornecedorService()
-                                .save(VendasFacilAuthenticationFirebase.getInstance().getFilial().getId(), fornecedor);
+                                .save(VendasFacilAuthentication.getInstance().getFilial().getId(), fornecedor);
 
                 callSave.enqueue(new Callback<Fornecedor>() {
                     @Override

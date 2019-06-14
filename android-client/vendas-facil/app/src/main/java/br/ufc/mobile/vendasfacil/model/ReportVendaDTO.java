@@ -1,22 +1,33 @@
 package br.ufc.mobile.vendasfacil.model;
 
-import java.util.Date;
-
 public class ReportVendaDTO {
 
-	private Date date;
+	private Integer qtd;
+	private String date;
 	private Double total;
-	
-	public ReportVendaDTO(Date date, Double total) {
+
+	public ReportVendaDTO() {
+	}
+
+	public ReportVendaDTO(Integer qtd, String date, Double total) {
+		this.qtd = qtd;
 		this.date = date;
 		this.total = total;
 	}
 
-	public Date getDate() {
+	public Integer getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(Integer qtd) {
+		this.qtd = qtd;
+	}
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
