@@ -65,6 +65,9 @@ public class VendaController implements ISimpleControllerFindAllByFilialAndUsuar
 	@GetMapping("")
 	public ResponseEntity<Collection<Venda>> findAll(@RequestParam("filial") Filial filial,
 			@AuthenticationPrincipal Usuario usuario) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
 		return ResponseEntity.ok(vendaService.findAll(filial, usuario));
 	}
 
@@ -87,18 +90,30 @@ public class VendaController implements ISimpleControllerFindAllByFilialAndUsuar
 	}
 	
 	@GetMapping("/reports/dia")
-	public ResponseEntity<ReportVendaDTO> reportByDia(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(vendaService.reportByDia(usuario));
+	public ResponseEntity<ReportVendaDTO> reportByDia(@RequestParam("filial") Filial filial, 
+			@AuthenticationPrincipal Usuario usuario) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
+		return ResponseEntity.ok(vendaService.reportByDia(usuario, filial));
 	}
 	
 	@GetMapping("/reports/semana")
-	public ResponseEntity<Collection<ReportVendaDTO>> reportBySemana(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(vendaService.reportBySemana(usuario));
+	public ResponseEntity<Collection<ReportVendaDTO>> reportBySemana(@RequestParam("filial") Filial filial,
+			@AuthenticationPrincipal Usuario usuario) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
+		return ResponseEntity.ok(vendaService.reportBySemana(usuario, filial));
 	}
 	
 	@GetMapping("/reports/mes")
-	public ResponseEntity<Collection<ReportVendaDTO>> reportByMes(@AuthenticationPrincipal Usuario usuario) {
-		return ResponseEntity.ok(vendaService.reportByMes(usuario));
+	public ResponseEntity<ReportVendaDTO> reportByMes(@RequestParam("filial") Filial filial, 
+			@AuthenticationPrincipal Usuario usuario) {
+		if(filial == null)
+			throw new NotFoundException("Filial não localizada");
+		
+		return ResponseEntity.ok(vendaService.reportByMes(usuario, filial));
 	}
 	
 }

@@ -22,7 +22,7 @@ import br.ufc.mobile.vendasfacil.presenter.LocalizarFiliaisPresenter;
 import br.ufc.mobile.vendasfacil.ui.VendasFacilView;
 import br.ufc.mobile.vendasfacil.utils.APIUtils;
 import br.ufc.mobile.vendasfacil.utils.Utils;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -139,7 +139,7 @@ public class LocalizarFiliaisPresenterImpl
             @Override
             public void onResponse(Call<Filial> call, Response<Filial> response) {
                 if(response.isSuccessful()){
-                    VendasFacilAuthenticationFirebase.getInstance().setFilial(response.body());
+                    VendasFacilAuthentication.getInstance().setFilial(response.body());
 
                     mView.openActivityPrincipal();
                 }else{

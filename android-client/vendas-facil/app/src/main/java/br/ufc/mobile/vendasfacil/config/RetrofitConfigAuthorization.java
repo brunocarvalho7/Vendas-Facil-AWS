@@ -6,8 +6,9 @@ import br.ufc.mobile.vendasfacil.service.ClienteService;
 import br.ufc.mobile.vendasfacil.service.FilialService;
 import br.ufc.mobile.vendasfacil.service.FornecedorService;
 import br.ufc.mobile.vendasfacil.service.ProdutoService;
+import br.ufc.mobile.vendasfacil.service.ReportsService;
 import br.ufc.mobile.vendasfacil.service.VendaService;
-import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthentication;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +26,7 @@ public class RetrofitConfigAuthorization {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", VendasFacilAuthenticationFirebase.getInstance().getToken())
+                        .addHeader("Authorization", VendasFacilAuthentication.getInstance().getToken())
                         .build();
 
                     return chain.proceed(newRequest);
@@ -58,5 +59,9 @@ public class RetrofitConfigAuthorization {
 
     public FilialService getFilialService(){
         return this.retrofit.create(FilialService.class);
+    }
+
+    public ReportsService getReportsService(){
+        return this.retrofit.create(ReportsService.class);
     }
 }
